@@ -14,4 +14,10 @@
 1. Entities - represents data (for example: Customer.java)
 2. Request - contains the request body
 
+## To run docker
+
+1. Make sure you are in the root directory
+2. first run: `docker-compose up -d` (you need docker version > 2.1)
+3. next runs: `docker-compose start`
+
 
