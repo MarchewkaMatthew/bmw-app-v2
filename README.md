@@ -9,6 +9,8 @@
    
 2. Service - interact with data, contains the business logic
 
+3. Repository - interacts with the DB
+
 ### Additional files
 
 1. Entities - represents data (for example: Customer.java)
