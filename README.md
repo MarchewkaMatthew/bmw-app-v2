@@ -22,4 +22,10 @@
 2. first run: `docker-compose up -d` (you need docker version > 2.1)
 3. next runs: `docker-compose start`
 
+## TODO: In the future
+
+1. For now, we run all the database's in the one Docker container,
+we can change that in the `docker-compose.yml`, adding the separate
+   service for every microservice database, f.e: postgres-appointment
+
 

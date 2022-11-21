@@ -9,8 +9,8 @@
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>flats</module>
     <module>customer</module>
+    <module>appointment</module>
   </modules>
 
   <name>bmw-app</name>
