@@ -12,4 +12,8 @@ public record CustomerService(CustomerRepository customerRepository) {
         // TODO: check if email valid and not taken
         customerRepository.save(customer);
     }
+
+    public Customer getCustomer(Integer id) {
+        return customerRepository.getById(id);
+    }
 }
