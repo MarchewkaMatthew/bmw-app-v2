@@ -1,6 +1,8 @@
 package com.bmwapp.customer;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public record CustomerService(CustomerRepository customerRepository) {
@@ -14,6 +16,9 @@ public record CustomerService(CustomerRepository customerRepository) {
     }
 
     public Customer getCustomer(Integer id) {
-        return customerRepository.getById(id);
+        return customerRepository
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        String.format("Consumer with id %d not found", id)));
     }
 }
