@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class AppointmentConfiguration {
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
