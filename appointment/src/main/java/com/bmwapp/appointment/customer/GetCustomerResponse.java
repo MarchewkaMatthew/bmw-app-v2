@@ -1,4 +1,4 @@
-package com.bmwapp.appointment;
+package com.bmwapp.appointment.customer;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
