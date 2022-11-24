@@ -2,7 +2,9 @@ package com.bmwapp.appointment;
 
 import com.bmwapp.appointment.customer.GetCustomerResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,16 +16,22 @@ public record AppointmentService(AppointmentRepository appointmentRepository, Re
         LocalDateTime appointmentDate = LocalDateTime.parse(request.appointmentDate(), formatter);
 
         // SPRAWDZENIE CZY CUSTOMER ISTNIEJE
-        GetCustomerResponse
-                response = restTemplate
-                .getForObject("http://localhost:8080/api/v1/customers/{id}", GetCustomerResponse.class,
-                        request.customerId());
+        try {
+            GetCustomerResponse
+                    response = restTemplate
+                    .getForObject("http://localhost:8080/api/v1/customers/{id}", GetCustomerResponse.class,
+                            request.customerId());
 
-        if (response.customer() != null) {
             Appointment appointment = Appointment.builder().customerId(request.customerId()).appointmentName(
                     request.appointmentName()).appointmentDate(appointmentDate).build();
 
             appointmentRepository.save(appointment);
+        }
+        catch (final HttpClientErrorException e) {
+            System.out.println(e.getStatusCode());
+            System.out.println(e.getResponseBodyAsString());
+
+            throw e;
         }
     }
 }
