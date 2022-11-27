@@ -1,9 +1,9 @@
 package com.bmwapp.flat;
 
 import com.bmwapp.flat.model.Flat;
-import org.springframework.http.HttpStatus;
+import com.bmwapp.flat.repository.FlatRepository;
+import com.bmwapp.flat.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public record FlatService(FlatRepository flatRepository) {
@@ -16,7 +16,6 @@ public record FlatService(FlatRepository flatRepository) {
     public Flat getFlat(Integer id) {
         return flatRepository
                 .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        String.format("Flat with id %d not found", id)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Flat with id %d not found", id)));
     }
 }
