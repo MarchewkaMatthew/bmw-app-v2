@@ -8,13 +8,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="appointment" />
+        <module name="flat" />
         <module name="customer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="appointment" target="17" />
-      <module name="bmw-app" target="17" />
-      <module name="customer" target="17" />
       <module name="flats" target="17" />
     </bytecodeTargetLevel>
   </component>

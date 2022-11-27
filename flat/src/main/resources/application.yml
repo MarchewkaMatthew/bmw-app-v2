@@ -1,0 +1,17 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: flat
+  datasource:
+    password: password
+    url: jdbc:postgresql://localhost:5432/flat
+    username: amigoscode
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
