@@ -30,6 +30,4 @@ public class Address {
     private String country; //maybe we should create a separate model if needed
     private String postal_code;
     private Point location;
-    @OneToOne(mappedBy = "address")
-    private Flat flat;
 }

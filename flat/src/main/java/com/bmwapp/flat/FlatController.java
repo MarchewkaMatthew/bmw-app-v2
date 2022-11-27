@@ -1,6 +1,8 @@
 package com.bmwapp.flat;
 import com.bmwapp.flat.model.Flat;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -9,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public record FlatController(FlatService flatService) {
 
     @PostMapping
-    public void registerCustomer(@RequestBody Flat flat) {
+    public void addFlat(@RequestBody Flat flat) {
         log.info("new flat registration {}", flat);
         flatService.addFlat(flat);
     }
 
-//    @GetMapping(path = "{id}")
-//    public GetFlatResponse getCustomer(@PathVariable("id") Integer id) {
-//        log.info("get customer with id: {}", id);
-//
-//        Flat flat = flatService.getFlat(id);
-//        return new GetFlatResponse(FlatDto.FromDomain(flat));
-//    };
+    @GetMapping(path = "{id}")
+    public ResponseEntity<Flat> getFlat(@PathVariable("id") Integer id) {
+        log.info("get flat with id: {}", id);
+
+        Flat flat = flatService.getFlat(id);
+        return new ResponseEntity<>(flat, HttpStatus.OK);
+    };
 }
