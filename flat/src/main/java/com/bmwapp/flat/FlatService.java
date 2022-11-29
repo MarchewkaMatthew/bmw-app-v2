@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public record FlatService(FlatRepository flatRepository) {
 
     public void addFlat(Flat flat) {
-
         flatRepository.save(flat);
     }
 
