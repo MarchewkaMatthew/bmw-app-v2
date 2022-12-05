@@ -1,6 +1,7 @@
 package com.bmwapp.appointment;
 
 import com.bmwapp.appointment.customer.GetCustomerResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,7 @@ public record AppointmentService(AppointmentRepository appointmentRepository, Re
         try {
             GetCustomerResponse
                     response = restTemplate
-                    .getForObject("http://localhost:8080/api/v1/customers/{id}", GetCustomerResponse.class,
+                    .getForObject("http://CUSTOMER/api/v1/customers/{id}", GetCustomerResponse.class,
                             request.customerId());
 
             Appointment appointment = Appointment.builder().customerId(request.customerId()).appointmentName(
@@ -28,10 +29,9 @@ public record AppointmentService(AppointmentRepository appointmentRepository, Re
             appointmentRepository.save(appointment);
         }
         catch (final HttpClientErrorException e) {
-            System.out.println(e.getStatusCode());
-            System.out.println(e.getResponseBodyAsString());
-
-            throw e;
+            // TODO: Check why forwarding the throw e is not working
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    String.format("Consumer with id %d not found", request.customerId()));
         }
     }
 }
