@@ -20,7 +20,7 @@ public record AppointmentService(AppointmentRepository appointmentRepository, Re
         try {
             GetCustomerResponse
                     response = restTemplate
-                    .getForObject("http://localhost:8080/api/v1/customers/{id}", GetCustomerResponse.class,
+                    .getForObject("http://CUSTOMER/api/v1/customers/{id}", GetCustomerResponse.class,
                             request.customerId());
 
             Appointment appointment = Appointment.builder().customerId(request.customerId()).appointmentName(
