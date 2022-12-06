@@ -28,7 +28,8 @@
 - 9411 - zipkin
 - 8761 - eureka
 - 8083 - API Gateway (main backend port)
-- 8080,8081,8082 - microservices
+- 8084,8081,8082 - microservices
+- 8080 - keycloak
 
 ## To run docker
 
