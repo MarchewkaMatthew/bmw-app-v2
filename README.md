@@ -21,6 +21,14 @@
 1. Register the Controller endpoints in the API Gateway (apigw/main/resources/application.yml)
 2. add the eureka dependency and add an EurekaClient decorator in the application
 
+### Ports
+
+- 5432 - postgres
+- 5050 - pgadmin
+- 9411 - zipkin
+- 8761 - eureka
+- 8083 - API Gateway (main backend port)
+- 8080,8081,8082 - microservices
 
 ## To run docker
 
