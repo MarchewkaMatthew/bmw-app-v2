@@ -13,6 +13,7 @@
     <module>appointment</module>
     <module>flat</module>
     <module>eureka-server</module>
+    <module>apigw</module>
   </modules>
 
   <name>bmw-app</name>

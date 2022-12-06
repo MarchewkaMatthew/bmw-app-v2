@@ -16,6 +16,12 @@
 1. Entities - represents data (for example: Customer.java)
 2. Request - contains the request body
 
+## Remember when adding the new microservice
+
+1. Register the Controller endpoints in the API Gateway (apigw/main/resources/application.yml)
+2. add the eureka dependency and add an EurekaClient decorator in the application
+
+
 ## To run docker
 
 1. Make sure you are in the root directory
