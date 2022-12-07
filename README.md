@@ -29,7 +29,8 @@
 - 8761 - eureka
 - 8083 - API Gateway (main backend port)
 - 8084,8081,8082 - microservices
-- 8080 - keycloak
+- 8890 - keycloak
+- 5436 - keycloak postgres
 
 ## To run docker
 

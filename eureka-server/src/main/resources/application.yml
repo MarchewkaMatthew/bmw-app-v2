@@ -9,3 +9,6 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
+azure:
+  application-insights:
+    instrumentation-key: 0ebd0d65-1e3b-45db-bb40-355f178cc2e2
