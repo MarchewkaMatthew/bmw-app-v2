@@ -14,6 +14,7 @@
     <module>flat</module>
     <module>eureka-server</module>
     <module>apigw</module>
+    <module>authenticator</module>
   </modules>
 
   <name>bmw-app</name>
@@ -36,8 +37,8 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring.boot.dependencies.version}</version>
-        <scope>import</scope>
         <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
