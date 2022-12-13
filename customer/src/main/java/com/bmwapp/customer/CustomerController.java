@@ -3,6 +3,8 @@ package com.bmwapp.customer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 @Slf4j
 @RestController
 @RequestMapping("api/v1/customers")

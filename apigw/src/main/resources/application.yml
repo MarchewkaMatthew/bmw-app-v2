@@ -20,6 +20,11 @@ spring:
           uri: lb://FLAT
           predicates:
             - Path=/api/v1/flats/**
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8890/realms/bmw-app
 eureka:
   client:
     service-url:
