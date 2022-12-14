@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
@@ -24,10 +25,15 @@ public class Address {
             generator = "address_id_sequence"
     )
     private Integer id;
-    private String address;
+    @NotBlank(message = "Street is mandatory")
+    private String street;
+    @NotBlank(message = "District is mandatory")
     private String district;
-    private String city; //maybe we should create a separate model if needed
-    private String country; //maybe we should create a separate model if needed
+    @NotBlank(message = "City is mandatory")
+    private String city;
+    @NotBlank(message = "Country is mandatory")
+    private String country;
+    @NotBlank(message = "Postal code is mandatory")
     private String postal_code;
     private Point location;
 }
