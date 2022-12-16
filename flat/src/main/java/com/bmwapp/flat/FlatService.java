@@ -30,13 +30,13 @@ public record FlatService(FlatRepository flatRepository) {
     }
 
     public void updateFlat(Flat updatedFlat) {
-        flatRepository
-                .findById(updatedFlat.getId())
-                .ifPresent(flat -> {
-                    flat.setFlatName(updatedFlat.getFlatName());
-                    flat.setAddress(updatedFlat.getAddress());
-                    flatRepository.save(flat);
-                });
-//        flatRepository.save(updatedFlat) <-- można też od razu, ale wyżej lepiej sprawdzić czy istnieje entity zamiast dodawać jeśli nie istnieje itp.
+//        flatRepository
+//                .findById(updatedFlat.getId())
+//                .ifPresent(flat -> {
+//                    flat.setFlatName(updatedFlat.getFlatName());
+//                    flat.setAddress(updatedFlat.getAddress());
+//                    flatRepository.save(flat);
+//                });
+            flatRepository.save(updatedFlat);
     }
 }

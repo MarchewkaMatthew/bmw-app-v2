@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/api/v1/flats/1",
+							"raw": "http://localhost:8083/api/v1/flats/205",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -25,7 +25,7 @@
 								"api",
 								"v1",
 								"flats",
-								"1"
+								"205"
 							]
 						}
 					},
@@ -58,7 +58,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/api/v1/flats?searchValue=rzesz",
+							"raw": "http://localhost:8083/api/v1/flats?searchValue=kraków",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -72,7 +72,7 @@
 							"query": [
 								{
 									"key": "searchValue",
-									"value": "rzesz"
+									"value": "kraków"
 								}
 							]
 						}
@@ -116,7 +116,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"id\": 3024,\r\n        \"flatName\": \"Rzeszowskie mieszkanie 432\",\r\n        \"address\": {\r\n            \"id\": 304,\r\n            \"street\": \"ul. Fajna 6\",\r\n            \"district\": \"podkarpackie\",\r\n            \"city\": \"Rzeszów\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"21-346\",\r\n            \"location\": null\r\n        }\r\n}",
+							"raw": "    {\r\n        \"id\": 452,\r\n        \"flatName\": \"Rzeszowskie mieszkanie dsa\",\r\n        \"pricePerSquareMeter\": 10499,\r\n        \"area\": 32.5,\r\n        \"numberOfRooms\": 3,\r\n        \"constructionYear\": 2017,\r\n        \"floor\": 3,\r\n        \"isActive\": false\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,36 +140,149 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Customer-Microservice",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SetInvestment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 202, \r\n    \"flatId\": 502\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers/setInvestment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"setInvestment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jkolasiak@gmail.com\",\r\n    \"firstName\": \"Jakub\",\r\n    \"lastName\": \"Kolasiak\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 202,\r\n    \"firstName\": \"Jakub\",\r\n    \"lastName\": \"Kolasiakssss\",\r\n    \"email\": \"jkolasiak@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
 		"type": "oauth2",
 		"oauth2": [
-			{
-				"key": "tokenType",
-				"value": "Bearer",
-				"type": "string"
-			},
-			{
-				"key": "accessToken",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDSk8zeTh1eXU5T0FoM2xwaXR6S1FhcXZxbl9tTE1xeEduNUNtcV9JdzM4In0.eyJleHAiOjE2NzEwNDYwOTQsImlhdCI6MTY3MTA0NTc5NCwianRpIjoiNmFiMWJlYjgtZDI5Ni00MDllLWIwZmEtODkwYWQ4NmNhNzAzIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4ODkwL3JlYWxtcy9ibXctYXBwIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImYwNjE3MGYzLWVjNDAtNDYzNi05NjY1LTc2ZTcyNGEwYmYzZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImJtdy1hcHAtZ2F0ZXdheS1jbGllbnQiLCJzZXNzaW9uX3N0YXRlIjoiYjYxNWIwMTQtMmQxMi00ZWQyLTk2ODAtMGE4ZDNlOTQ2ZDU4IiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJkZWZhdWx0LXJvbGVzLWJtdy1hcHAiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiY3VzdG9tZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwic2lkIjoiYjYxNWIwMTQtMmQxMi00ZWQyLTk2ODAtMGE4ZDNlOTQ2ZDU4IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiQ3VzdG9tZXIgVGVzdGIiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZXN0X2N1c3RvbWVyIiwiZ2l2ZW5fbmFtZSI6IkN1c3RvbWVyIiwiZmFtaWx5X25hbWUiOiJUZXN0YiJ9.h3fCRFkjWzjQRVGGYZIFdHV64UF7H_Q5Q3dylPaNb4ul0F-AReQQ5TuUw2QdndYPhAflE5h7D7FmuFf6HT5Oah1K5ZAYt0WDvhb3K2XkVJaGc6ZpsCO2Jac_17_oCToX0LCL4wrzmiSuW0MiAQ0d6odXd1WHEITD3oKBru84Rj-KNdNmGda81XeDdZRQaUiDJwM5L02hdkgXqhmEhL3MVy9d0Hed_4ILXYS4zrK9DqArcEx9IKyImHnLp9lhiuOtw1-poltLfxwecqWm_xtwRLHdm8TDu9u6dSwaYvEW5zGmJnTl_w1bRAkLr-Mt9jliJv7rKCRKCQzDog5kx-l4LQ",
-				"type": "string"
-			},
-			{
-				"key": "tokenName",
-				"value": "token_customer",
-				"type": "string"
-			},
-			{
-				"key": "challengeAlgorithm",
-				"value": "S256",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "test_customer",
-				"type": "string"
-			},
 			{
 				"key": "scope",
 				"value": "openid",
@@ -181,8 +294,8 @@
 				"type": "string"
 			},
 			{
-				"key": "grant_type",
-				"value": "password_credentials",
+				"key": "username",
+				"value": "test_customer",
 				"type": "string"
 			},
 			{
@@ -191,18 +304,18 @@
 				"type": "string"
 			},
 			{
-				"key": "addTokenTo",
-				"value": "header",
-				"type": "string"
-			},
-			{
-				"key": "client_authentication",
-				"value": "header",
-				"type": "string"
-			},
-			{
 				"key": "accessTokenUrl",
 				"value": "http://localhost:8890/realms/bmw-app/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
 				"type": "string"
 			}
 		]

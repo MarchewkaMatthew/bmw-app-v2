@@ -22,10 +22,10 @@ public record FlatController(FlatService flatService) {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<Flat> getFlat(@PathVariable("id") Integer id) {
+    public GetFlatResponse getFlat(@PathVariable("id") Integer id) {
         log.info("get flat with id: {}", id);
         Flat flat = flatService.getFlat(id);
-        return new ResponseEntity<>(flat, HttpStatus.OK);
+        return new GetFlatResponse(FlatDto.FromDomain(flat));
     };
 
     @GetMapping()
