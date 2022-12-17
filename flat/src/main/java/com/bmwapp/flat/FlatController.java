@@ -1,13 +1,11 @@
 package com.bmwapp.flat;
-import com.bmwapp.flat.model.Address;
+import com.bmwapp.flat.dto.FlatDto;
 import com.bmwapp.flat.model.Flat;
+import com.bmwapp.flat.request.FlatAddRequest;
+import com.bmwapp.flat.response.GetFlatResponse;
+import com.bmwapp.flat.response.GetFlatsResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -16,29 +14,29 @@ import java.util.List;
 public record FlatController(FlatService flatService) {
 
     @PostMapping
-    public void addFlat(@Valid @RequestBody Flat flat) {
-        log.info("new flat registration {}", flat);
-        flatService.addFlat(flat);
+    public FlatDto addFlat(@RequestBody FlatAddRequest flatAddRequest) {
+        log.info("new flat registration {}", flatAddRequest);
+        return flatService.addFlat(flatAddRequest);
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<Flat> getFlat(@PathVariable("id") Integer id) {
+    public GetFlatResponse getFlat(@PathVariable("id") Integer id) {
         log.info("get flat with id: {}", id);
-        Flat flat = flatService.getFlat(id);
-        return new ResponseEntity<>(flat, HttpStatus.OK);
-    };
+        FlatDto flatDto = flatService.getFlat(id);
+        return new GetFlatResponse(flatDto);
+    }
 
     @GetMapping()
-    public ResponseEntity<List<Flat>> getSearchFlat(@RequestParam(value = "searchValue", required = false) String searchValue) {
+    public GetFlatsResponse getSearchFlat(@RequestParam(value = "searchValue", required = false) String searchValue) {
         log.info("get all flats or with search value");
-        List<Flat> flats;
+        List<FlatDto> flats;
         if(searchValue == null || searchValue.isEmpty()) flats = flatService.getAllFlats();
         else flats = flatService.getSearchFlat(searchValue);
-        return new ResponseEntity<>(flats, HttpStatus.OK);
-    };
+        return new GetFlatsResponse(flats);
+    }
 
     @PutMapping
-    public void updateFlat(@Valid @RequestBody Flat flat) {
+    public void updateFlat(@RequestBody Flat flat) {
         log.info("update flat {}", flat);
         flatService.updateFlat(flat);
     }
