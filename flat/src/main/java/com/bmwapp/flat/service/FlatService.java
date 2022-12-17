@@ -1,8 +1,10 @@
 package com.bmwapp.flat.service;
 
 import com.bmwapp.flat.dto.FlatDto;
+import com.bmwapp.flat.exception.ResourceNotFoundException;
 import com.bmwapp.flat.model.Flat;
 import com.bmwapp.flat.repository.FlatRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
@@ -12,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public record FlatService(FlatRepository flatRepository, ModelMapper modelMapper) {
 
@@ -24,7 +26,7 @@ public record FlatService(FlatRepository flatRepository, ModelMapper modelMapper
     public Flat getFlat(Integer flatId) {
         Flat flat = flatRepository
                 .findById(flatId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Flat with id %d not found", flatId)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Flat with id %d not found", flatId)));
         return flat;
     }
 
@@ -53,8 +55,8 @@ public record FlatService(FlatRepository flatRepository, ModelMapper modelMapper
         Flat oldFlat = flatRepository
                 .findById(flat.getId())
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                String.format("Flat with id %d not found", flat.getId())));
+                        new ResourceNotFoundException(String.format("Flat with id %d not found", flat.getId())));
+
         Provider<Flat> flatProvider = p -> oldFlat;
         propertyMapper.setProvider(flatProvider);
 
