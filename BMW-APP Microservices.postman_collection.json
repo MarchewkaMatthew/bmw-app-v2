@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "489f56a4-6d63-4727-a77e-f3dcacde5396",
+		"name": "BMW-APP Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24478214"
+	},
+	"item": [
+		{
+			"name": "Flat-Microservice",
+			"item": [
+				{
+					"name": "Get Flat by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/flats/452",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"flats",
+								"452"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Flats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/flats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"flats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Flats with Search Value",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/flats?searchValue=rzeszów",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"flats"
+							],
+							"query": [
+								{
+									"key": "searchValue",
+									"value": "rzeszów"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Flat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flatDto\": {\r\n        \"flatName\": \"test 4 nowe mieszkanie\",\r\n        \"pricePerSquareMeter\": 29999.0,\r\n        \"area\": 50,\r\n        \"numberOfRooms\": 2,\r\n        \"constructionYear\": \"2022\",\r\n        \"isActive\": true,\r\n        \"address\": {\r\n            \"street\": \"ul. Wysoka 33\",\r\n            \"district\": \"malopolska\",\r\n            \"city\": \"Kraków\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"31-226\",\r\n            \"location\": null\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/flats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"flats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Flat",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"flatDto\": {\r\n        \"id\": 704,\r\n        \"flatName\": \"test 4 nowe mieszkanie\",\r\n        \"pricePerSquareMeter\": 19966.0,\r\n        \"constructionYear\": \"2021\",\r\n        \"floor\": null,\r\n        \"isActive\": true,\r\n        \"address\": {\r\n            \"id\": 1002,\r\n            \"street\": \"ul. Nowa 33\",\r\n            \"district\": \"malopolskie\",\r\n            \"city\": \"Kraków\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"32-156\",\r\n            \"location\": null\r\n        }\r\n    }\r\n}\r\n// {\r\n//     \"flatDto\": {\r\n//             \"flatName\": \"Nowe mieszkanie\",\r\n//             \"pricePerSquareMeter\": 12499.0,\r\n//             \"area\": 43.0,\r\n//             \"numberOfRooms\": 4,\r\n//             \"constructionYear\": \"2018\",\r\n//             \"floor\": 4,\r\n//             \"isActive\": true,\r\n//             \"address\": {\r\n//                 \"street\": \"ul. Nowa 33\",\r\n//                 \"district\": \"malopolskie\",\r\n//                 \"city\": \"Kraków\",\r\n//                 \"country\": \"Polska\",\r\n//                 \"postal_code\": \"32-156\",\r\n//                 \"location\": null\r\n//             }\r\n//     }\r\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/flats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"flats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Customer-Microservice",
+			"item": [
+				{
+					"name": "Get All Customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test432321@gmail.com\",\r\n    \"firstName\": \"Jan\",\r\n    \"lastName\": \"Testowy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 202,\r\n    \"firstName\": \"Jakub\",\r\n    \"lastName\": \"Kolasiakssss\",\r\n    \"email\": \"jkolasiak@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment-Microservice",
+			"item": [
+				{
+					"name": "Add new Appointment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 1,\r\n    \"appointmentName\": \"Nowe spotkanie test 2\",\r\n    \"appointmentDate\": \"2023-11-25 00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Appointment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 1,\r\n    \"appointmentName\": \"Nowe spotkanie test\",\r\n    \"appointmentDate\": \"2023-11-23 00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "test_customer",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "bmw-app-gateway-client",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8890/realms/bmw-app/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
