@@ -22,11 +22,4 @@ public class FlatDto implements Serializable {
     private Integer floor;
     private Boolean isActive;
     private AddressDto address;
-
-//    public static FlatDto FromDomain(@Valid Flat flat) {
-////        return new FlatDto(flat.getId(), flat.getFlatName(),
-////                flat.getPricePerSquareMeter(), flat.getArea(),
-////                flat.getNumberOfRooms(), flat.getConstructionYear(), flat.getFloor(), flat.getIsActive(), AddressDto.FromDomain(flat.getAddress()));
-//        FlatDto flatDto = modelMapper
-//    }
 }

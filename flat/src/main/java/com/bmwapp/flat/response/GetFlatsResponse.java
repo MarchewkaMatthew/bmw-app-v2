@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @ResponseBody
-public record GetFlatsResponse(List<FlatDto> flatDto) {
+public record GetFlatsResponse(List<FlatDto> flatDtoList) {
 }

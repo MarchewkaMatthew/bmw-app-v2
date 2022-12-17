@@ -32,10 +32,7 @@ public class Flat {
     @Column(unique=true)
     @NotBlank(message = "Name of flat is mandatory")
     private String flatName;
-
-    @NotBlank(message = "Price per square meter of flat is mandatory")
     private Double pricePerSquareMeter;
-    @NotBlank(message = "Area of flat is mandatory")
     private Double area;
     private Integer numberOfRooms;
     private Year constructionYear;

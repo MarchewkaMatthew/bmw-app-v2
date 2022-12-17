@@ -18,10 +18,4 @@ public class AddressDto implements Serializable {
     private String country;
     private String postal_code;
     private Point location;
-
-    public static AddressDto FromDomain(Address address) {
-        return new AddressDto(address.getId(), address.getStreet(),
-                address.getDistrict(), address.getCity(),
-                address.getCountry(), address.getPostal_code(), address.getLocation());
-    }
 }
