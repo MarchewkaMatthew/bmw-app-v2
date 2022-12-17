@@ -9,3 +9,16 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+keycloak:
+  realm: demo
+  resource: demo-service
+  auth-server-url: 'http://localhost:8890/'
+  ssl-required: external
+  use-resource-role-mappings: true
+app:
+  keycloak:
+    login:
+      url: 'http://localhost:8890/auth/realms/demo/protocol/openid-connect/token'
+    grant-type: password
+    client-id: '${keycloak.resource}'
+    client-secret: K6xeuhpakoXZl8j017ElArjO2f5Bnfo7
