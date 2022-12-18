@@ -20,6 +20,10 @@ spring:
           uri: lb://FLAT
           predicates:
             - Path=/api/v1/flats/**
+        - id: message
+          uri: lb://MESSAGE
+          predicates:
+            - Path=/api/v1/messages/**
   security:
     oauth2:
       resource-server:
