@@ -1,4 +1,4 @@
-package com.bmw.app.config;
+package com.bmwapp.message.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,4 +1,4 @@
-package com.bmw.app.model;
+package com.bmwapp.message.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

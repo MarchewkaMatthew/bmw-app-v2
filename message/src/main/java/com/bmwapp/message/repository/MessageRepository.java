@@ -1,6 +1,6 @@
-package com.bmw.app.repository;
+package com.bmwapp.message.repository;
 
-import com.bmw.app.model.Message;
+import com.bmwapp.message.model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {

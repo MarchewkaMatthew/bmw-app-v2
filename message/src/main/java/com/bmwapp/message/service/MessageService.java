@@ -1,10 +1,11 @@
-package com.bmw.app.service;
+package com.bmwapp.message.service;
 
-import com.bmw.app.dto.MessageDto;
-import com.bmw.app.repository.MessageRepository;
-import com.bmw.app.exception.ResourceNotFoundException;
-import com.bmw.app.model.Message;
+import com.bmwapp.message.dto.MessageDto;
+import com.bmwapp.message.exception.ResourceNotFoundException;
+import com.bmwapp.message.model.Message;
+import com.bmwapp.message.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public record MessageService(MessageRepository messageRepository) {
+public record MessageService(MessageRepository messageRepository, ModelMapper modelMapper) {
 
     public Message addMessage(Message message) {
         Message messageCreated = messageRepository.save(message);
@@ -26,11 +27,9 @@ public record MessageService(MessageRepository messageRepository) {
         return message;
     }
 
-    public List<MessageDto> getAllMessages() {
+    public List<Message> getAllMessages() {
         List<Message> messages = messageRepository.findAll();
-        return messages.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+        return messages;
     }
 
     public MessageDto convertToDto(Message message) {

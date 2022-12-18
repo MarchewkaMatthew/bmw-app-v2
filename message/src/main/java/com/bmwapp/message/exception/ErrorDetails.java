@@ -1,4 +1,4 @@
-package com.bmw.app.exception;
+package com.bmwapp.message.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
