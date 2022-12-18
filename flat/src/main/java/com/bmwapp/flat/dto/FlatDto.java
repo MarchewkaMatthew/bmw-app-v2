@@ -22,4 +22,7 @@ public class FlatDto implements Serializable {
     private Integer floor;
     private Boolean isActive;
     private AddressDto address;
+    public Double getPriceOfFlat(){
+        return pricePerSquareMeter * area;
+    }
 }
