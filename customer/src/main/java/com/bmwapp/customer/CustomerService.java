@@ -47,32 +47,6 @@ public record CustomerService(CustomerRepository customerRepository, RestTemplat
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         String.format("Customer with id %d not found", id)));
-<<<<<<< Updated upstream
-    }
-
-    public void addInvestmentToCustomer(CustomerSetInvestmentRequest request) {
-            GetFlatResponse
-                    response = restTemplate
-                    .getForObject("http://FLAT/api/v1/flats/{id}", GetFlatResponse.class,
-                            request.flatId());
-
-            log.info("Flat test tutaj... {}", response);
-
-
-            Customer customer = customerRepository.findById(request.customerId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("Customer with id %d not found", request.customerId())));
-
-            Investment investment = Investment.builder()
-                    .status("Nowa inwestycja")
-                    .flatDto(response.flatDto())
-                    .build();
-
-            customer.addInvestment(investment);
-            customerRepository.save(customer);
-    }
-
-=======
     }
 
 //    public void addInvestmentToCustomer(CustomerSetInvestmentRequest request) {
@@ -96,6 +70,4 @@ public record CustomerService(CustomerRepository customerRepository, RestTemplat
 //            customer.addInvestment(investment);
 //            customerRepository.save(customer);
 //    }
-
->>>>>>> Stashed changes
 }

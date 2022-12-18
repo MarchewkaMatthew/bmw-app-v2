@@ -27,11 +27,4 @@ public class Investment {
 
     private String status;
 
-<<<<<<< Updated upstream
-    @OneToOne
-    @Column(name = "flat_id")
-    private FlatDto flatDto;
-
-=======
->>>>>>> Stashed changes
 }
