@@ -50,9 +50,17 @@ public record CustomerController(CustomerService customerService) {
                 .map(customer -> CustomerDto.FromDomain(customer))
                 .collect(Collectors.toList()));
     }
+<<<<<<< Updated upstream
     @PostMapping("/setInvestment") //Nie wiem jak to można tutaj zrobić, żeby nie dzielić na inny microservice
     public void setCustomerInvestment(@RequestBody CustomerSetInvestmentRequest customerSetInvestmentRequest){
         log.info("Add investment to customer {}", customerSetInvestmentRequest);
          customerService.addInvestmentToCustomer(customerSetInvestmentRequest);
     }
+=======
+//    @PostMapping("/setInvestment") //Nie wiem jak to można tutaj zrobić, żeby nie dzielić na inny microservice
+//    public void setCustomerInvestment(@RequestBody CustomerSetInvestmentRequest customerSetInvestmentRequest){
+//        log.info("Add investment to customer {}", customerSetInvestmentRequest);
+//         customerService.addInvestmentToCustomer(customerSetInvestmentRequest);
+//    }
+>>>>>>> Stashed changes
 }
