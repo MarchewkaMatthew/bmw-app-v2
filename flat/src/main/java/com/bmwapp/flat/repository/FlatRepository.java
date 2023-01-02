@@ -15,5 +15,5 @@ public interface FlatRepository extends JpaRepository<Flat, Integer> {
             "lower(a.city) LIKE CONCAT('%',:searchValue, '%') OR " +
             "lower(a.district) LIKE CONCAT('%',:searchValue, '%') OR " +
             "lower(a.postal_code) LIKE CONCAT('%',:searchValue, '%')")
-    List<Flat> getSearchFlat(@Param("searchValue") String searchValue);
+    List<Flat> getAllFlats(@Param("searchValue") String searchValue);
 }

@@ -10,9 +10,9 @@ import com.bmwapp.customer.response.GetCustomerResponse;
 import com.bmwapp.customer.response.GetAllCustomersResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.annotation.security.RolesAllowed;
 
 @Slf4j
 @RestController
