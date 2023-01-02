@@ -1,5 +1,6 @@
 package com.bmwapp.customer;
 
+import com.bmwapp.customer.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
