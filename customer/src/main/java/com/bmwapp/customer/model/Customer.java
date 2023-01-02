@@ -1,4 +1,4 @@
-package com.bmwapp.customer;
+package com.bmwapp.customer.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -26,4 +28,12 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
+
+    @OneToMany(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "customer_id")
+    private List<Investment> investments = new ArrayList<>();
+
+    public void addInvestment(Investment investment){
+        if(!investments.contains(investment)) investments.add(investment);
+    }
 }

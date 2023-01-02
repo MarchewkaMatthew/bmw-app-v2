@@ -32,6 +32,7 @@ public class Flat {
     @Column(unique=true)
     @NotBlank(message = "Name of flat is mandatory")
     private String flatName;
+
     private Double pricePerSquareMeter;
     private Double area;
     private Integer numberOfRooms;

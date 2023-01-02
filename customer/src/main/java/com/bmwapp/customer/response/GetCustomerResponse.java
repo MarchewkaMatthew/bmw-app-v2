@@ -1,5 +1,6 @@
-package com.bmwapp.customer;
+package com.bmwapp.customer.response;
 
+import com.bmwapp.customer.CustomerDto;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
