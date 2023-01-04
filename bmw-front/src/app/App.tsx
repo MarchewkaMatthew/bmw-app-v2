@@ -1,5 +1,6 @@
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Header, Content, Footer } from 'antd/es/layout/layout';
+import Link from 'antd/es/typography/Link';
 import React from 'react';
 import { Logo } from '../components/logo/Logo';
 import { Wrapper } from '../components/wrapper/Wrapper';
@@ -13,7 +14,7 @@ export const App: React.FC = () => {
       <Header className={styles.header}>
         <Wrapper className={styles.headerWrapper}>
           <Logo />
-          <Menu
+          {/* <Menu
             theme="dark"
             mode="horizontal"
             className={styles.menu}
@@ -25,7 +26,10 @@ export const App: React.FC = () => {
               { key: "agenci", label: "Agenci"},
               { key: "formularz-kontaktowy", label: "Formularz kontaktowy"},
             ]}
-          />
+          /> */}
+          <div className={styles.menu}>
+            menu
+          </div>
         </Wrapper>
       </Header>
       <Content>
