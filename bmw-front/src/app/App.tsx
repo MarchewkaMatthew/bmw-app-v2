@@ -1,6 +1,7 @@
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Header, Content, Footer } from 'antd/es/layout/layout';
 import React from 'react';
+import { Logo } from '../components/logo/Logo';
 import { Wrapper } from '../components/wrapper/Wrapper';
 import { Counter } from '../features/counter/Counter';
 
@@ -10,19 +11,20 @@ export const App: React.FC = () => {
   return (
     <Layout className={styles.layout} >
       <Header className={styles.header}>
-        <Wrapper>
-          <div className="logo" />
+        <Wrapper className={styles.headerWrapper}>
+          <Logo />
           <Menu
             theme="dark"
             mode="horizontal"
-            defaultSelectedKeys={['2']}
-            items={new Array(15).fill(null).map((_, index) => {
-              const key = index + 1;
-              return {
-                key,
-                label: `nav ${key}`,
-              };
-            })}
+            className={styles.menu}
+            defaultSelectedKeys={['nieruchomosci']}
+            items={[
+              { key: "nieruchomosci", label: "Nieruchomości"},
+              { key: "moje-inwestycje", label: "Moje inwestycje"},
+              { key: "klienci", label: "Klienci"},
+              { key: "agenci", label: "Agenci"},
+              { key: "formularz-kontaktowy", label: "Formularz kontaktowy"},
+            ]}
           />
         </Wrapper>
       </Header>

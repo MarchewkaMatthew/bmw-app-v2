@@ -9,6 +9,15 @@
   padding-inline: 0;
 }
 
+.headerWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  margin-left: auto;
+}
+
 .contentWrapper {
   background-color: white;
   padding: 16px;

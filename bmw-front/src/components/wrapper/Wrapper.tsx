@@ -4,9 +4,10 @@ import styles from "./Wrapper.module.scss"
 
 interface WrapperProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 export const Wrapper: React.FC<WrapperProps> = (props) => {
-  const { children } = props
-  return <div className={styles.wrapper}>{children}</div>
+  const { children, className } = props
+  return <div className={`${styles.wrapper} ${className}`}>{children}</div>
 }
