@@ -1,0 +1,19 @@
+.layout {
+  min-height: 100vh;
+}
+
+.header.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-inline: 0;
+}
+
+.contentWrapper {
+  background-color: white;
+  padding: 16px;
+}
+
+.footer {
+  text-align: center;
+}

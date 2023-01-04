@@ -1,0 +1,13 @@
+@import '../../styles/breakpoints.scss';
+
+.wrapper {
+  width: 100%;
+  max-width: 1440px;
+  padding: 0 16px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: $breakpoint-tablet) {
+    padding: 0 64px;
+  }
+}
