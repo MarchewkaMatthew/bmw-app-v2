@@ -1,10 +1,10 @@
 import { Badge, Descriptions, Empty } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGetFlatQuery } from '../../store/api/flat/flatApi';
 
-import styles from './FlatsPage.module.scss'
+import styles from './FlatPage.module.scss'
 
 export const FlatPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,6 +19,7 @@ export const FlatPage: React.FC = () => {
 
   return (
     <article>
+      <Link to="/flats">{`<- Wróc do listy mieszkań`}</Link>
       <Title className={styles.title}>{flatName}</Title>
       <div className={styles.content}>
         <Descriptions title="Dane mieszkania" bordered>
