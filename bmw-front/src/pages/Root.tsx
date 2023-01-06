@@ -11,7 +11,9 @@ export const Root: React.FC = () => {
   const { keycloak, initialized } = useKeycloak()
 
   console.log(keycloak, initialized);
-  
+
+  // keycloak.register();
+
   return (
     <article>
       <Layout className={styles.layout} >
