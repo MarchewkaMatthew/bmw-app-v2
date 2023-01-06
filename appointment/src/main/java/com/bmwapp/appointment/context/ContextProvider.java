@@ -42,4 +42,9 @@ public class ContextProvider {
     public void requiredRole(String roleName) {
         if(!userHasRole(roleName)) throw new PermissionSecurityException("The user does not have permission to the resource!");
     }
+
+    public void requiredRoles(String... roles) {
+        
+        if(!userHasRole(roleName)) throw new PermissionSecurityException("The user does not have permission to the resource!");
+    }
 }

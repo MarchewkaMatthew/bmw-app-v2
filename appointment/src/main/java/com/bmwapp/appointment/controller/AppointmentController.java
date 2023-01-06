@@ -49,6 +49,16 @@ public record AppointmentController(AppointmentService appointmentService, Conte
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("/forCustomer")
+    public AppointmentsResponse getAllAppointmentsForCustomer() {
+        contextProvider.requiredRole("CUSTOMER");
+        log.info("Get all customers appointments");
+        List<Appointment> appointments = appointmentService.getAllAppointmentsByCustomerId(contextProvider.getLoggedUserId());
+        return new AppointmentsResponse(appointments.stream()
+                .map(appointmentService::convertToDto)
+                .collect(Collectors.toList()));
+    }
+
     @PutMapping
     public AppointmentResponse updateAppointment(@RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
         log.info("Update appointment {}", appointmentUpdateRequest);
