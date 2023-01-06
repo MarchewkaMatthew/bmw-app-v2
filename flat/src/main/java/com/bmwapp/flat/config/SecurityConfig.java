@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity security) throws Exception {
         security
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/v1/flats").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/flats/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
