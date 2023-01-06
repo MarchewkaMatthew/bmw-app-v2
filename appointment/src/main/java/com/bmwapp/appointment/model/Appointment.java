@@ -27,4 +27,5 @@ public class Appointment {
     private Integer customerId;
     private String appointmentName;
     private LocalDateTime appointmentDate;
+    private Integer flatId;
 }

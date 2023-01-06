@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public record AppointmentController(AppointmentService appointmentService) {
 
     @PostMapping
-    public void addApointment(@RequestBody AppointmentAddRequest appointmentAddRequest) {
-        log.info("new appointment {}", appointmentAddRequest);
+    public void addAppointment(@RequestBody AppointmentAddRequest appointmentAddRequest) {
+        log.info("Add new Appointment {}", appointmentAddRequest);
         appointmentService.addAppointment(appointmentAddRequest);
     }
 }
