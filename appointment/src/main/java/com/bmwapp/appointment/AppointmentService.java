@@ -1,40 +1,42 @@
 package com.bmwapp.appointment;
 
-import com.bmwapp.appointment.customer.GetCustomerResponse;
+import com.bmwapp.appointment.context.ContextProvider;
+import com.bmwapp.appointment.dto.AppointmentDto;
 import com.bmwapp.appointment.model.Appointment;
 import com.bmwapp.appointment.repository.AppointmentRepository;
-import com.bmwapp.appointment.request.AppointmentAddRequest;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+@Slf4j
 @Service
-public record AppointmentService(AppointmentRepository appointmentRepository, RestTemplate restTemplate) {
-    public void addAppointment(AppointmentAddRequest request) {
+public record AppointmentService(AppointmentRepository appointmentRepository, RestTemplate restTemplate,
+                                 ModelMapper modelMapper) {
+
+    static ContextProvider contextProvider;
+    public Appointment addAppointment(Appointment appointment) {
+        if(!contextProvider.getAuthenticationToken().isAuthenticated()) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User must be be authenticated!");
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "2023-11-23 00:00"
-        LocalDateTime appointmentDate = LocalDateTime.parse(request.appointmentDate(), formatter);
+        LocalDateTime appointmentDate = LocalDateTime.parse(appointment.getAppointmentDate().toString(), formatter);
 
-        // SPRAWDZENIE CZY CUSTOMER ISTNIEJE
-        try {
-            GetCustomerResponse
-                    response = restTemplate
-                    .getForObject("http://CUSTOMER/api/v1/customers/{id}", GetCustomerResponse.class,
-                            request.customerId());
+        appointment.setAppointmentDate(appointmentDate);
+        appointment.setCustomerId(contextProvider.getLoggedUserId());
 
-            Appointment appointment = Appointment.builder().customerId(request.customerId()).appointmentName(
-                    request.appointmentName()).appointmentDate(appointmentDate).build();
+        return appointmentRepository.save(appointment);
+    }
 
-            appointmentRepository.save(appointment);
-        }
-        catch (final HttpClientErrorException e) {
-            // TODO: Check why forwarding the throw e is not working
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    String.format("Consumer with id %d not found", request.customerId()));
-        }
+
+    public AppointmentDto convertToDto(Appointment appointment) {
+        return modelMapper.map(appointment, AppointmentDto.class);
+    }
+
+    public Appointment convertToEntity(AppointmentDto appointmentDto) {
+        return modelMapper.map(appointmentDto, Appointment.class);
     }
 }

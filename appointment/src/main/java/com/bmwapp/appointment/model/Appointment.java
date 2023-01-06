@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,7 +25,8 @@ public class Appointment {
             generator = "appointment_id_sequence"
     )
     private Integer id;
-    private Integer customerId;
+    @Length(max = 36)
+    private String customerId; //String, ponieważ jest to id z keycloak które ma w bazie varchar(36)
     private String appointmentName;
     private LocalDateTime appointmentDate;
     private Integer flatId;
