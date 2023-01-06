@@ -63,11 +63,11 @@ public record AppointmentService(AppointmentRepository appointmentRepository,
         return appointmentRepository.save(updatedAppointment);
     }
 
-    public void deleteAppointmentById(Integer appointmentId) {
+    public void deleteAppointmentByIdAndCustomerId(Integer appointmentId, String customerId) {
         Appointment appointment = appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Appointment with id %d not found", appointmentId)));
-        appointmentRepository.delete(appointment);
+        appointmentRepository.deleteByIdAndCustomerId(appointmentId, customerId);
     }
 
     public AppointmentDto convertToDto(Appointment appointment) {
