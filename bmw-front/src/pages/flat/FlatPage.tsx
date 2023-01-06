@@ -1,12 +1,10 @@
 import Title from 'antd/es/typography/Title';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
-interface FlatPageProps {
-  id: string;
-}
+export const FlatPage: React.FC = () => {
+  const { id } = useParams<{id: string}>();
 
-export const FlatPage: React.FC<FlatPageProps> = (props) => {
-  const { id } = props
   return (
     <article>
       <Title>Flat {id}</Title>
