@@ -1,7 +1,6 @@
 import { Button, Col, Form, Input, message, Row } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 
 import styles from "./ContactPage.module.scss"
 import { MessageDto } from '../../store/api/contact/types';
@@ -15,9 +14,7 @@ export const ContactPage: React.FC = () => {
   const [addPost] = useAddMessageMutation()
 
   const onFinish = async (values: ContactFormValues) => {
-    const id = uuid();
-
-    addPost({ messageDto: { id, ...values } }).then(() => {
+    addPost({ messageDto: values }).then(() => {
       messageApi.loading("Wiadomość wysyła się");
     }).catch(() => {
       console.log('catch');

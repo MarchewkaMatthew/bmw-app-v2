@@ -8,5 +8,5 @@ export interface MessageDto {
 }
 
 export interface MessageAddRequest {
-  messageDto: MessageDto;
+  messageDto: Omit<MessageDto, "id">;
 }
