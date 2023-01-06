@@ -23,6 +23,7 @@ public record AppointmentController(AppointmentService appointmentService, Conte
 
     @PostMapping
     public AppointmentResponse addAppointment(@RequestBody AppointmentAddRequest appointmentAddRequest) {
+        contextProvider.requiredAnyRoles("CUSTOMER", "AGENT");
         log.info("Add new appointment {}", appointmentAddRequest);
         Appointment appointment = appointmentService.convertToEntity(appointmentAddRequest.appointmentDto());
         return new AppointmentResponse(appointmentService.convertToDto(appointmentService.addAppointment(appointment)));
@@ -51,7 +52,7 @@ public record AppointmentController(AppointmentService appointmentService, Conte
 
     @GetMapping("/forCustomer")
     public AppointmentsResponse getAllAppointmentsForCustomer() {
-        contextProvider.requiredRole("CUSTOMER");
+        contextProvider.requiredAnyRoles("CUSTOMER", "AGENT");
         log.info("Get all customers appointments");
         List<Appointment> appointments = appointmentService.getAllAppointmentsByCustomerId(contextProvider.getLoggedUserId());
         return new AppointmentsResponse(appointments.stream()
@@ -61,6 +62,7 @@ public record AppointmentController(AppointmentService appointmentService, Conte
 
     @PutMapping
     public AppointmentResponse updateAppointment(@RequestBody AppointmentUpdateRequest appointmentUpdateRequest) {
+        contextProvider.requiredAnyRoles("CUSTOMER", "AGENT");
         log.info("Update appointment {}", appointmentUpdateRequest);
         Appointment appointment = appointmentService.convertToEntity(appointmentUpdateRequest.appointmentDto());
         Appointment updatedAppointment = appointmentService.updateAppointment(appointment);
@@ -69,6 +71,7 @@ public record AppointmentController(AppointmentService appointmentService, Conte
 
     @DeleteMapping(path = "{id}")
     public ResponseEntity<?> deleteAppointment(@PathVariable("id") Integer appointmentId) {
+        contextProvider.requiredAnyRoles("CUSTOMER", "AGENT");
         log.info("Delete appointment {}", appointmentId);
         appointmentService.deleteAppointmentById(appointmentId);
         return ResponseEntity.ok(String.format("Appointment with id %d deleted successfully", appointmentId));

@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -31,12 +33,13 @@ public class ContextProvider {
         Map<String, Object> claims = authenticationToken.getToken().getClaims();
         return claims;
     }
-
+    public List<String> getUserRoles() {
+        List<String> userRoles = (List<String>) getLoggedUserClaims().get("roles");
+        if(userRoles != null) return userRoles;
+        else throw new PermissionSecurityException("The user does not have any permission!");
+    }
     public boolean userHasRole(String roleName) {
-        JwtAuthenticationToken authenticationToken = getAuthenticationToken();
-        Map<String, Object> claims = authenticationToken.getToken().getClaims();
-        ArrayList<String> roles = (ArrayList<String>) claims.get("roles");
-        return roles.contains(roleName);
+        return getUserRoles().contains(roleName);
     }
 
     public void requiredRole(String roleName) {
@@ -44,7 +47,19 @@ public class ContextProvider {
     }
 
     public void requiredRoles(String... roles) {
-        
-        if(!userHasRole(roleName)) throw new PermissionSecurityException("The user does not have permission to the resource!");
+        if(!getUserRoles().containsAll(Arrays.asList(roles))) throw new PermissionSecurityException("The user does not have permission to the resource!");
+    }
+
+    public void requiredAnyRoles(String... roles) {
+        if(!userHasAnyRoles(Arrays.asList(roles))) throw new PermissionSecurityException("The user does not have permission to the resource!");
+    }
+
+    public boolean userHasAnyRoles(List<String> roles) {
+        for (String role : roles) {
+            for (String userRole : getUserRoles()) {
+                if(role.equals(userRole)) return true;
+            }
+        }
+        return false;
     }
 }
