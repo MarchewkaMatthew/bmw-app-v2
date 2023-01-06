@@ -6,7 +6,7 @@ export const flatApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8083/api/v1/flats' }),
   endpoints: (builder) => ({
     getFlats: builder.query<GetFlatsResponse, string>({
-      query: (searchValue) => { return {url: "/", params: { searchValue }} }
+      query: (searchValue) => { return {url: "", params: { searchValue }} }
     }),
     getFlat: builder.query<GetFlatResponse, number>({
       query: (flatId) => `/${flatId}`
