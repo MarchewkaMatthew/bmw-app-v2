@@ -1,6 +1,9 @@
 package com.bmwapp.appointment;
 
 import com.bmwapp.appointment.customer.GetCustomerResponse;
+import com.bmwapp.appointment.model.Appointment;
+import com.bmwapp.appointment.repository.AppointmentRepository;
+import com.bmwapp.appointment.request.AppointmentAddRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;

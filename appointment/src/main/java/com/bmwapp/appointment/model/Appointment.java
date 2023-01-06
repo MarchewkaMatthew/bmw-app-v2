@@ -1,4 +1,4 @@
-package com.bmwapp.appointment;
+package com.bmwapp.appointment.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
