@@ -1,31 +1,33 @@
 import { Button, Col, Form, Input, message, Row } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
-import { wait } from '../../utils/utils';
 import { v4 as uuid } from 'uuid';
 
 import styles from "./ContactPage.module.scss"
+import { MessageDto } from '../../store/api/contact/types';
+import { useAddMessageMutation } from '../../store/api/contact/contactApi';
 
-interface ContactFormValues {
-  firstName: string;
-  lastName?: string;
-  email: string;
-  phoneNumber?: string;
-  additionalInformation?: string;
-}
+type ContactFormValues = Omit<MessageDto, "id">
 
 export const ContactPage: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+  const [addPost] = useAddMessageMutation()
 
   const onFinish = async (values: ContactFormValues) => {
     const id = uuid();
-    console.log('Received values of form: ', values, id);
-    messageApi.loading("Wiadomość wysyła się");
-    await wait(5000);
-    messageApi.destroy();
-    messageApi.success("Wiadomość wysłana");
-    form.resetFields();
+
+    addPost({ messageDto: { id, ...values } }).then(() => {
+      messageApi.loading("Wiadomość wysyła się");
+    }).catch(() => {
+      console.log('catch');
+      messageApi.error("Wysyłanie nie powiodło się :(")
+    }).finally(() => {
+      console.log("finally")
+      messageApi.destroy();
+      messageApi.success("Wiadomość wysłana");
+      form.resetFields();
+    })
   };
 
   return (
