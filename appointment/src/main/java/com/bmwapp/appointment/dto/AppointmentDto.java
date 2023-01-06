@@ -1,12 +1,19 @@
 package com.bmwapp.appointment.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppointmentDto implements Serializable {
     private Integer id;
     private String customerId;
     private String appointmentName;
-    private LocalDateTime appointmentDate;
+    private String appointmentDate;
     private Integer flatId;
+
 }

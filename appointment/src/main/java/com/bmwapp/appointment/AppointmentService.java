@@ -11,21 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 @Slf4j
 @Service
-public record AppointmentService(AppointmentRepository appointmentRepository, RestTemplate restTemplate,
-                                 ModelMapper modelMapper) {
+public record AppointmentService(AppointmentRepository appointmentRepository,
+                                 RestTemplate restTemplate, ModelMapper modelMapper, ContextProvider contextProvider) {
 
-    static ContextProvider contextProvider;
     public Appointment addAppointment(Appointment appointment) {
         if(!contextProvider.getAuthenticationToken().isAuthenticated()) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User must be be authenticated!");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); // "2023-11-23 00:00"
-        LocalDateTime appointmentDate = LocalDateTime.parse(appointment.getAppointmentDate().toString(), formatter);
-
-        appointment.setAppointmentDate(appointmentDate);
+        contextProvider.userHasRole();
         appointment.setCustomerId(contextProvider.getLoggedUserId());
 
         return appointmentRepository.save(appointment);

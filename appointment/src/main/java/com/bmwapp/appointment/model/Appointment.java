@@ -30,4 +30,5 @@ public class Appointment {
     private String appointmentName;
     private LocalDateTime appointmentDate;
     private Integer flatId;
+
 }
