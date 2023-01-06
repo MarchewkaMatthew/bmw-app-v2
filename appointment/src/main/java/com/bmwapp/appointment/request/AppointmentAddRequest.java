@@ -1,4 +1,6 @@
 package com.bmwapp.appointment.request;
 
-public record AppointmentAddRequest(Integer customerId, String appointmentName, String appointmentDate) {
+import com.bmwapp.appointment.dto.AppointmentDto;
+
+public record AppointmentAddRequest(AppointmentDto appointmentDto) {
 }
