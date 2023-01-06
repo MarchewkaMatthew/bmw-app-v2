@@ -42,7 +42,7 @@ export const ContactPage: React.FC = () => {
             layout="vertical"
           >
             <Form.Item
-              name="firstname"
+              name="firstName"
               label="Imie"
               rules={[
                 {
@@ -55,7 +55,7 @@ export const ContactPage: React.FC = () => {
               <Input />
             </Form.Item>
             <Form.Item
-              name="lastname"
+              name="lastName"
               label="Nazwisko"
               className={styles.formItem}
             >
