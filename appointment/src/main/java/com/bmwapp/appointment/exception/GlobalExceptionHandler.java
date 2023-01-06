@@ -2,6 +2,7 @@ package com.bmwapp.appointment.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,8 +20,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(PermissionSecurityException.class)
-    public ResponseEntity<?> permissionSecurityExceptionHandling(PermissionSecurityException exception, WebRequest request){
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> permissionSecurityExceptionHandling(AccessDeniedException exception, WebRequest request){
         ErrorDetails errorDetails =
                 new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
