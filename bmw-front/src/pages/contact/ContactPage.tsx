@@ -1,6 +1,7 @@
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Button, Col, Form, Input, message, Row } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
+import { wait } from '../../utils/utils';
 
 import styles from "./ContactPage.module.scss"
 
@@ -14,13 +15,20 @@ interface ContactFormValues {
 
 export const ContactPage: React.FC = () => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  const onFinish = (values: ContactFormValues) => {
+  const onFinish = async (values: ContactFormValues) => {
     console.log('Received values of form: ', values);
+    messageApi.loading("Wiadomość wysyła się");
+    await wait(5000);
+    messageApi.destroy();
+    messageApi.success("Wiadomość wysłana");
+    form.resetFields();
   };
 
   return (
     <article>
+      {contextHolder}
       <Title className={styles.title}>Zostaw nam swoje dane, a na pewno się odezwiemy!</Title>
       <Row gutter={24} className={styles.content}>
         <Col xs={24} md={16} xl={12}>
