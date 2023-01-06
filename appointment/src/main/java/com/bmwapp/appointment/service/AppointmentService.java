@@ -5,6 +5,7 @@ import com.bmwapp.appointment.dto.AppointmentDto;
 import com.bmwapp.appointment.exception.ResourceNotFoundException;
 import com.bmwapp.appointment.model.Appointment;
 import com.bmwapp.appointment.repository.AppointmentRepository;
+import com.bmwapp.appointment.response.GetFlatResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
@@ -23,6 +24,9 @@ public record AppointmentService(AppointmentRepository appointmentRepository,
 
     public Appointment addAppointment(Appointment appointment) {
         appointment.setCustomerId(contextProvider.getLoggedUserId());
+        GetFlatResponse response = restTemplate
+                .getForObject("http://FLAT/api/v1/flats/{id}", GetFlatResponse.class, appointment.getFlatId());
+        if(response.flatDto() == null) throw new ResourceNotFoundException(String.format("Flat with id %d not found", appointment.getFlatId()));
         return appointmentRepository.save(appointment);
     }
 
