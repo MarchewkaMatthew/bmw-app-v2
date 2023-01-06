@@ -23,3 +23,7 @@ export interface FlatDto {
 export interface GetFlatsResponse {
   flatDtoList: FlatDto[];
 }
+
+export interface GetFlatResponse {
+  flatDto: FlatDto;
+}

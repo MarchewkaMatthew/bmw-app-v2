@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { GetFlatsResponse } from './types';
+import { GetFlatResponse, GetFlatsResponse } from './types';
 
 export const flatApi = createApi({
   reducerPath: 'flatApi',
@@ -8,7 +8,10 @@ export const flatApi = createApi({
     getFlats: builder.query<GetFlatsResponse, string>({
       query: (searchValue) => { return {url: "/", params: { searchValue }} }
     }),
+    getFlat: builder.query<GetFlatResponse, number>({
+      query: (flatId) => `/${flatId}`
+    })
   }),
 })
 
-export const { useGetFlatsQuery } = flatApi;
+export const { useGetFlatsQuery, useGetFlatQuery } = flatApi;
