@@ -1,5 +1,6 @@
 package com.bmwapp.message.service;
 
+import com.bmwapp.message.context.ContextProvider;
 import com.bmwapp.message.dto.MessageDto;
 import com.bmwapp.message.exception.ResourceNotFoundException;
 import com.bmwapp.message.model.Message;
@@ -13,10 +14,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public record MessageService(MessageRepository messageRepository, ModelMapper modelMapper) {
+public record MessageService(MessageRepository messageRepository, ModelMapper modelMapper, ContextProvider contextProvider) {
 
     public Message addMessage(Message message) {
-        Message messageCreated = messageRepository.save(message);
         return messageRepository.save(message);
     }
 
