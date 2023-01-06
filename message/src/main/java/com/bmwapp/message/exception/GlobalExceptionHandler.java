@@ -18,6 +18,12 @@ public class GlobalExceptionHandler {
                 new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(PermissionSecurityException.class)
+    public ResponseEntity<?> permissionSecurityExceptionHandling(PermissionSecurityException exception, WebRequest request){
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> globalExceptionHandling(Exception exception, WebRequest request){
