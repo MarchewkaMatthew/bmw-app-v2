@@ -4,16 +4,22 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { App } from './app/App';
 import reportWebVitals from './reportWebVitals';
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+
 import './index.css';
+
+import keycloak from './Keycloak'
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ReactKeycloakProvider authClient={keycloak}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ReactKeycloakProvider>
   </React.StrictMode>
 );
 

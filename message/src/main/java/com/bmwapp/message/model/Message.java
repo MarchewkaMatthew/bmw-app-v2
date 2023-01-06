@@ -25,7 +25,6 @@ public class Message {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String companyName;
     private String phoneNumber;
     private String email;
     private String additionalInformation;
