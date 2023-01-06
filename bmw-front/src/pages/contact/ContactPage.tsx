@@ -2,6 +2,7 @@ import { Button, Col, Form, Input, message, Row } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
 import { wait } from '../../utils/utils';
+import { v4 as uuid } from 'uuid';
 
 import styles from "./ContactPage.module.scss"
 
@@ -18,7 +19,8 @@ export const ContactPage: React.FC = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const onFinish = async (values: ContactFormValues) => {
-    console.log('Received values of form: ', values);
+    const id = uuid();
+    console.log('Received values of form: ', values, id);
     messageApi.loading("Wiadomość wysyła się");
     await wait(5000);
     messageApi.destroy();
