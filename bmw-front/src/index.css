@@ -1,0 +1,9 @@
+html {
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
