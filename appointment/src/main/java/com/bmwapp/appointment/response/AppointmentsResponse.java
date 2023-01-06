@@ -4,5 +4,5 @@ import com.bmwapp.appointment.dto.AppointmentDto;
 
 import java.util.List;
 
-public record GetAppointmentsResponse(List<AppointmentDto> appointmentDtoList) {
+public record AppointmentsResponse(List<AppointmentDto> appointmentDtoList) {
 }

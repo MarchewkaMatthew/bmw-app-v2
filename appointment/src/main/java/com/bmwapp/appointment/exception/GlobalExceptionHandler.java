@@ -1,6 +1,4 @@
-package com.bmwapp.flat.exception;
-
-import java.util.Date;
+package com.bmwapp.appointment.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +6,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Date;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -17,6 +17,13 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails =
                 new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PermissionSecurityException.class)
+    public ResponseEntity<?> permissionSecurityExceptionHandling(PermissionSecurityException exception, WebRequest request){
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)

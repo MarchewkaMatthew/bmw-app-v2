@@ -1,4 +1,4 @@
-package com.bmwapp.flat.exception;
+package com.bmwapp.appointment.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
