@@ -75,7 +75,7 @@ export const FlatPage: React.FC = () => {
       <Link to="/flats">{`<- Wróc do listy mieszkań`}</Link>
       <Title className={styles.title}>{flatName}</Title>
       <div className={styles.content}>
-        <Descriptions title="Dane mieszkania" bordered>
+        <Descriptions title="Dane mieszkania" bordered column={{ xs: 1, sm: 1, md: 2, lg: 3 }}>
           <Descriptions.Item label="Nazwa">{flatName}</Descriptions.Item>
           <Descriptions.Item label="Rok wybudowania">{constructionYear}</Descriptions.Item>
           <Descriptions.Item label="Piętro">{floor}</Descriptions.Item>
