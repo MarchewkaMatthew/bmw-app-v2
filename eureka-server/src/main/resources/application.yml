@@ -9,3 +9,11 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
+management:
+  metrics:
+    export:
+      influx:
+        uri: http://localhost:8090
+        db: bmw_app_influxdb
+        user-name: influxdb
+        password: influxpass
