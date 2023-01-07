@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
+import { appointmentApi } from './api/appointment/appointmentApi';
 import { contactApi } from './api/contact/contactApi';
 import { flatApi } from './api/flat/flatApi';
 
@@ -8,10 +9,14 @@ export const store = configureStore({
     counter: counterReducer,
     // API
     [contactApi.reducerPath]: contactApi.reducer,
-    [flatApi.reducerPath]: flatApi.reducer
+    [flatApi.reducerPath]: flatApi.reducer,
+    [appointmentApi.reducerPath]: appointmentApi.reducer
   },
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(contactApi.middleware).concat(flatApi.middleware);
+    return getDefaultMiddleware()
+      .concat(contactApi.middleware)
+      .concat(flatApi.middleware)
+      .concat(appointmentApi.middleware);
   }
 });
 
