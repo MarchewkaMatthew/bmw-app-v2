@@ -1,6 +1,10 @@
+import Title from 'antd/es/typography/Title';
+import { Typography } from 'antd';
 import React from 'react';
+import { useAppUser } from '../../hooks/useAppUser';
 
 import styles from "./CustomerPanel.module.scss";
+const { Text } = Typography;
 
 
 // // KLIENT PANEL
@@ -11,9 +15,19 @@ import styles from "./CustomerPanel.module.scss";
 //   TODO: CZY POWINNISMY JAKOS OBSŁUZYC PROCES KUPOWANIA?
 
 export const CustomerPanel: React.FC = () => {
+  const appUser = useAppUser();
+
+
+  if (appUser._type !== "AUTHENTICATED") {
+    return null;
+  }
+
+  const { userName } = appUser;
+
   return (
     <div className={styles.container}>
-      customer panel
+      <Title>{`Cześć ${userName}!`}</Title>
+      <Text>Twoja rola to "CUSTOMER"</Text>
     </div>
   )
 }
