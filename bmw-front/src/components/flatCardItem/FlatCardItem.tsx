@@ -1,9 +1,11 @@
 import { EditOutlined, PlusCircleOutlined, PoweroffOutlined } from '@ant-design/icons';
-import { Badge, Button, Card, List, Tag, Tooltip, Typography } from 'antd';
+import { Badge, Button, Card, List, message, Tag, Tooltip, Typography } from 'antd';
 import Meta from 'antd/es/card/Meta';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FlatDto } from '../../store/api/flat/types';
+import { useAppUser } from '../../hooks/useAppUser';
+import { useUpdateFlatMutation } from '../../store/api/flat/flatApi';
+import { FlatDto, FlatUpdateRequest } from '../../store/api/flat/types';
 import styles from "./FlatCardItem.module.scss";
 
 const { Text } = Typography;
@@ -11,12 +13,38 @@ const { Text } = Typography;
 
 interface FlatCardItemProps {
   flat: FlatDto;
+  onFlatChange?: () => void;
 }
 
 export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
-  const { flat } = props
+  const { flat, onFlatChange } = props
   const { id, flatName, address, priceOfFlat, pricePerSquareMeter, numberOfRooms, floor, area, constructionYear, isActive } = flat;
   const { country, city, district, street } = address;
+  const appUser = useAppUser();
+  const [updateFlat] = useUpdateFlatMutation();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const changeFlatStatus = async () => {
+    if (appUser._type !== "AUTHENTICATED") {
+      throw new Error("User should be authenticated");
+    }
+
+    const request: FlatUpdateRequest = { flatDto: { id, isActive: !isActive } };
+
+    updateFlat({ body: request, token: appUser.token }).then(() => {
+      messageApi.loading("Przetwarzanie zmiany statusu ...");
+    }).catch(() => {
+      console.log('catch');
+      messageApi.error("Zmiana nie powiodła się :(")
+    }).finally(() => {
+      console.log("finally")
+      messageApi.destroy();
+      messageApi.success("Status zmieniony");
+      if (onFlatChange) {
+        onFlatChange();
+      }
+    })
+  }
 
   const actions = [
     <Tooltip title="Edytuj">
@@ -32,13 +60,7 @@ export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
     <Tooltip title={isActive ? "Dezaktywuj" : "Aktywuj"}>
       <Button
         type="text"
-        onClick={() => {
-          if (isActive) {
-            console.log("DEACTIVATE")
-          } else {
-            console.log("ACTIVATE")
-          }
-        }}
+        onClick={changeFlatStatus}
       >
         {isActive ? <PoweroffOutlined key="deactivate" /> : <PlusCircleOutlined key="activate" />}
       </Button>
@@ -47,6 +69,7 @@ export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
 
   return (
     <List.Item key={id} className={styles.container}>
+      {contextHolder}
       <Badge.Ribbon text={isActive ? "Dostępne" : "Niedostępne"} color={isActive ? "green" : "red"}>
         <Card actions={actions}>
           <Meta

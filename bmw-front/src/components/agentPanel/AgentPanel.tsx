@@ -17,7 +17,7 @@ const { Text } = Typography;
 
 export const AgentPanel: React.FC = () => {
   const appUser = useAppUser();
-  const { data, isLoading, isError } = useGetFlatsQuery("");
+  const { data, isLoading, isError, refetch } = useGetFlatsQuery("");
 
 
   if (appUser._type !== "AUTHENTICATED") {
@@ -55,7 +55,7 @@ export const AgentPanel: React.FC = () => {
               xxl: 4,
             }}
             loading={isLoading}
-            renderItem={flat => <FlatCardItem flat={flat} />}
+            renderItem={flat => <FlatCardItem flat={flat} onFlatChange={refetch} />}
           />
         )}
       </div>
