@@ -14,11 +14,13 @@ import {
   Typography,
 } from "antd";
 import Meta from "antd/es/card/Meta";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppUser } from "../../hooks/useAppUser";
+import { useModal } from "../../hooks/useModal";
 import { useUpdateFlatMutation } from "../../store/api/flat/flatApi";
 import { FlatDto, FlatUpdateRequest } from "../../store/api/flat/types";
+import { FlatModal, ModalFlat } from "../flatModal/FlatModal";
 import styles from "./FlatCardItem.module.scss";
 
 const { Text } = Typography;
@@ -46,17 +48,22 @@ export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
   const appUser = useAppUser();
   const [updateFlat] = useUpdateFlatMutation();
   const [messageApi, contextHolder] = message.useMessage();
+  // MODAL
+  const [open, showModal, hideModal] = useModal();
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
-  const changeFlatStatus = async () => {
+  const updateFlatLogic = async (
+    newFlatDto: Pick<FlatDto, "id"> & Partial<Omit<FlatDto, "id">>
+  ) => {
     if (appUser._type !== "AUTHENTICATED") {
       throw new Error("User should be authenticated");
     }
 
-    const request: FlatUpdateRequest = { flatDto: { id, isActive: !isActive } };
+    const request: FlatUpdateRequest = { flatDto: newFlatDto };
 
     updateFlat({ body: request, token: appUser.token })
       .then(() => {
-        messageApi.loading("Przetwarzanie zmiany statusu ...");
+        messageApi.loading("Przetwarzanie aktualizacji nieruchomości ...");
       })
       .catch(() => {
         console.log("catch");
@@ -65,21 +72,33 @@ export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
       .finally(() => {
         console.log("finally");
         messageApi.destroy();
-        messageApi.success("Status zmieniony");
+        messageApi.success("Nieruchomość zaktualizowana");
         if (onFlatChange) {
           onFlatChange();
         }
       });
   };
 
+  const changeFlatStatus = async () => {
+    await updateFlatLogic({ id, isActive: !isActive });
+  };
+
+  const handleUpdateFlat = async (modalFlat: ModalFlat) => {
+    setConfirmLoading(true);
+    const formattedFlat = {
+      ...modalFlat,
+      id,
+      address: { ...modalFlat.address, id: flat.address.id },
+    };
+    await updateFlatLogic(formattedFlat).finally(() => {
+      hideModal();
+      setConfirmLoading(false);
+    });
+  };
+
   const actions = [
     <Tooltip title="Edytuj">
-      <Button
-        type="text"
-        onClick={() => {
-          console.log("EDIT");
-        }}
-      >
+      <Button type="text" onClick={showModal}>
         <EditOutlined key="edit" />
       </Button>
     </Tooltip>,
@@ -129,6 +148,14 @@ export const FlatCardItem: React.FC<FlatCardItemProps> = (props) => {
           />
         </Card>
       </Badge.Ribbon>
+      <FlatModal
+        mode="EDIT"
+        open={open}
+        onOk={handleUpdateFlat}
+        onCancel={hideModal}
+        confirmLoading={confirmLoading}
+        flat={flat}
+      />
     </List.Item>
   );
 };
