@@ -1,12 +1,14 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Alert, Button, List, Typography } from 'antd';
-import Title from 'antd/es/typography/Title';
-import React from 'react';
-import { useAppUser } from '../../hooks/useAppUser';
-import { useGetFlatsQuery } from '../../store/api/flat/flatApi';
-import { FlatCardItem } from '../flatCardItem/FlatCardItem';
+import { PlusOutlined } from "@ant-design/icons";
+import { Alert, Button, List, Typography } from "antd";
+import Title from "antd/es/typography/Title";
+import React, { useState } from "react";
+import { useAppUser } from "../../hooks/useAppUser";
+import { useModal } from "../../hooks/useModal";
+import { useGetFlatsQuery } from "../../store/api/flat/flatApi";
+import { FlatCardItem } from "../flatCardItem/FlatCardItem";
+import { FlatModal, ModalFlat } from "../flatModal/FlatModal";
 
-import styles from "./AgentPanel.module.scss"
+import styles from "./AgentPanel.module.scss";
 const { Text } = Typography;
 
 // // AGENT PANEL
@@ -18,7 +20,21 @@ const { Text } = Typography;
 export const AgentPanel: React.FC = () => {
   const appUser = useAppUser();
   const { data, isLoading, isError, refetch } = useGetFlatsQuery("");
+  const [open, showModal, hideModal] = useModal();
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
+  const onFlatModalOk = async (flat: ModalFlat) => {
+    setConfirmLoading(true);
+
+    console.log(flat);
+
+    setTimeout(() => {
+      hideModal();
+      setConfirmLoading(false);
+      refetch();
+      console.log("finally");
+    }, 2000);
+  };
 
   if (appUser._type !== "AUTHENTICATED") {
     return null;
@@ -32,8 +48,12 @@ export const AgentPanel: React.FC = () => {
       <Text>Twoja rola to "AGENT"</Text>
       <div className={styles.flatsSection}>
         <div className={styles.sectionTitleContainer}>
-          <Title level={2} className={styles.sectionTitle}>Nieruchomości</Title>
-          <Button icon={<PlusOutlined />}>Dodaj nieruchomość</Button>
+          <Title level={2} className={styles.sectionTitle}>
+            Nieruchomości
+          </Title>
+          <Button onClick={showModal} icon={<PlusOutlined />}>
+            Dodaj nieruchomość
+          </Button>
         </div>
         {isError ? (
           <Alert
@@ -55,10 +75,19 @@ export const AgentPanel: React.FC = () => {
               xxl: 4,
             }}
             loading={isLoading}
-            renderItem={flat => <FlatCardItem flat={flat} onFlatChange={refetch} />}
+            renderItem={(flat) => (
+              <FlatCardItem flat={flat} onFlatChange={refetch} />
+            )}
           />
         )}
+        <FlatModal
+          mode="ADD"
+          open={open}
+          onOk={onFlatModalOk}
+          onCancel={hideModal}
+          confirmLoading={confirmLoading}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
