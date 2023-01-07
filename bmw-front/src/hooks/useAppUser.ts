@@ -17,8 +17,13 @@ export const useAppUser: () => AppUser = () => {
   if (!authenticated) {
     return { _type: "NOT_AUTHENTICATED", login, register };
   }
-  const isAgent = keycloak.tokenParsed?.roles.includes("AGENT");
-  const isCustomer = keycloak.tokenParsed?.roles.includes("CUSTOMER");
 
-  return { _type: "AUTHENTICATED", token: token || "ERROR", userName: tokenParsed?.preferred_username || "ERROR", logout, isAgent, isCustomer };
+  if(!tokenParsed || !token || !tokenParsed.roles || !tokenParsed.preferred_username) {
+    throw new Error("Some of the basic data is not specified")
+  }
+
+  const isAgent = tokenParsed.roles.includes("AGENT");
+  const isCustomer = tokenParsed.roles.includes("CUSTOMER");
+
+  return { _type: "AUTHENTICATED", token: token, userName: tokenParsed.preferred_username, logout, isAgent, isCustomer };
 };
