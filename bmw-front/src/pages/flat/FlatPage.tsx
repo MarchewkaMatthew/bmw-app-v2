@@ -1,7 +1,9 @@
-import { Badge, Descriptions, Empty } from 'antd';
+import { Badge, Button, Descriptions, Empty, message } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useAddAppointmentMutation } from '../../store/api/appointment/appointmentApi';
+import { AppointmentAddRequest } from '../../store/api/appointment/types';
 import { useGetFlatQuery } from '../../store/api/flat/flatApi';
 
 import styles from './FlatPage.module.scss'
@@ -9,6 +11,31 @@ import styles from './FlatPage.module.scss'
 export const FlatPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data } = useGetFlatQuery(Number(id));
+  const [addAppointment] = useAddAppointmentMutation();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const handleAddAppointment = async () => {
+    console.log("zamów spotkanie");
+
+    const request: AppointmentAddRequest = {
+      appointmentDto: {
+        appointmentName: "Fajne spotkanie",
+        appointmentDate: "2023-11-23 00:00",
+        flatId: Number(id)
+      }
+    }
+
+    addAppointment(request).then(() => {
+      messageApi.loading("Przetwarzanie spotkania ...");
+    }).catch(() => {
+      console.log('catch');
+      messageApi.error("Dodawanie nie powiodło się :(")
+    }).finally(() => {
+      console.log("finally")
+      messageApi.destroy();
+      messageApi.success("Spotkanie dodane");
+    })
+  }
 
   if (!data?.flatDto) {
     return <Empty />
@@ -19,6 +46,7 @@ export const FlatPage: React.FC = () => {
 
   return (
     <article>
+      {contextHolder}
       <Link to="/flats">{`<- Wróc do listy mieszkań`}</Link>
       <Title className={styles.title}>{flatName}</Title>
       <div className={styles.content}>
@@ -47,6 +75,9 @@ export const FlatPage: React.FC = () => {
             Kraj: {country}
           </Descriptions.Item>
         </Descriptions>
+        <div className={styles.actionWrapper}>
+          <Button type="primary" onClick={handleAddAppointment}>Zamów spotkanie</Button>
+        </div>
       </div>
     </article>
   )
