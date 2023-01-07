@@ -1,4 +1,4 @@
-package com.bmwapp.flat;
+package com.bmwapp.flat.controller;
 import com.bmwapp.flat.dto.FlatDto;
 import com.bmwapp.flat.model.Flat;
 import com.bmwapp.flat.request.FlatAddRequest;
@@ -6,15 +6,20 @@ import com.bmwapp.flat.request.FlatUpdateRequest;
 import com.bmwapp.flat.response.GetFlatResponse;
 import com.bmwapp.flat.response.GetFlatsResponse;
 import com.bmwapp.flat.service.FlatService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("api/v1/flats")
-public record FlatController(FlatService flatService) {
+@AllArgsConstructor
+public class FlatController {
+    private final FlatService flatService;
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @PostMapping
     public FlatDto addFlat(@RequestBody FlatAddRequest flatAddRequest) {
         log.info("new flat registration {}", flatAddRequest);
@@ -38,6 +43,7 @@ public record FlatController(FlatService flatService) {
         return new GetFlatsResponse(flats);
     }
 
+    @PreAuthorize("hasAuthority('AGENT')")
     @PutMapping
     public FlatDto updateFlat(@RequestBody FlatUpdateRequest flatUpdateRequest) {
         log.info("update flat {}", flatUpdateRequest);

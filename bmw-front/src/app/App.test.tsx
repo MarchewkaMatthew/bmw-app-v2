@@ -12,5 +12,5 @@ test('renders Welcome screen', () => {
   );
 
   // eslint-disable-next-line testing-library/prefer-screen-queries
-  expect(getByText(/Welcome/i)).toBeInTheDocument();
+  expect(getByText(/Będziesz miał wydatki/i)).toBeInTheDocument();
 });

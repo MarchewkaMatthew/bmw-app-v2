@@ -11,10 +11,10 @@ type ContactFormValues = Omit<MessageDto, "id">
 export const ContactPage: React.FC = () => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-  const [addPost] = useAddMessageMutation()
+  const [addMessage] = useAddMessageMutation()
 
   const onFinish = async (values: ContactFormValues) => {
-    addPost({ messageDto: values }).then(() => {
+    addMessage({ messageDto: values }).then(() => {
       messageApi.loading("Wiadomość wysyła się");
     }).catch(() => {
       console.log('catch');
