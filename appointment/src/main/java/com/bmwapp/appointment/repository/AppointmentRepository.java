@@ -8,4 +8,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
     List<Appointment> getAllByCustomerId(String customerId);
+
+
+    void deleteByIdAndCustomerId(Integer id, String customerId);
 }
