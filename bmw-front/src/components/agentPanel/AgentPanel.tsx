@@ -1,4 +1,5 @@
-import { Alert, List, Typography } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Alert, Button, List, Typography } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
 import { useAppUser } from '../../hooks/useAppUser';
@@ -12,7 +13,6 @@ const { Text } = Typography;
 
 // CZEŚĆ AGENT!
 //   LISTA WIADOMOŚCI (TODO: DODAĆ MOŻLIWOŚĆ EDYCJI STATUSU WIADOMOŚCI NA ODPOWIEDZIANA)
-//   LISTA NIERUCHOMOŚCI + MOŻLIWOŚĆ DODANIA NOWEJ, EDYCJI STARYCH
 //   LISTA SPOTKAŃ + MOLIWOŚĆ ZMIANY SPOTKANIA (TODO: DODAĆ FLAGĘ isCanceled), USUWANIE SPOTKANIA
 
 export const AgentPanel: React.FC = () => {
@@ -31,7 +31,10 @@ export const AgentPanel: React.FC = () => {
       <Title>{`Cześć ${userName}!`}</Title>
       <Text>Twoja rola to "AGENT"</Text>
       <div className={styles.flatsSection}>
-        <Title level={2} className={styles.sectionTitle}>Nieruchomości</Title>
+        <div className={styles.sectionTitleContainer}>
+          <Title level={2} className={styles.sectionTitle}>Nieruchomości</Title>
+          <Button icon={<PlusOutlined />}>Dodaj nieruchomość</Button>
+        </div>
         {isError ? (
           <Alert
             message="Wczytanie mieszkań nie powiodło się"
