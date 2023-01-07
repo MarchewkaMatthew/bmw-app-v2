@@ -5,6 +5,11 @@ import { ContactPage } from '../pages/contact/ContactPage';
 import { FlatPage } from '../pages/flat/FlatPage';
 import { WelcomePage } from '../pages/welcome/WelcomePage';
 import { Root } from '../pages/Root';
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
+
+import keycloak from '../Keycloak'
 
 const router = createBrowserRouter([
   {
@@ -32,7 +37,17 @@ const router = createBrowserRouter([
 ]);
 
 export const App: React.FC = () => {
+
   return (
-    <RouterProvider router={router} />
+    <ReactKeycloakProvider authClient={keycloak} initOptions={{
+      onLoad: "check-sso",
+      checkLoginIframe: false
+    }}>
+      <React.StrictMode>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </React.StrictMode>
+    </ReactKeycloakProvider>
   )
 }
