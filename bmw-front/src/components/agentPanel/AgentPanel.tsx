@@ -93,7 +93,7 @@ export const AgentPanel: React.FC = () => {
               md: 1,
               lg: 2,
               xl: 3,
-              xxl: 4,
+              xxl: 3,
             }}
             loading={isLoading}
             renderItem={(flat) => (

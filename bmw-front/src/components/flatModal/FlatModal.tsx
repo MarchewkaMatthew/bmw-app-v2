@@ -42,7 +42,12 @@ export const FlatModal: React.FC<FlatModalProps> = (props) => {
   const handleFormSubmit = (values: any) => {
     const formattedValues = {
       ...values,
-      constructionYear: dayjs(values.constructionYear).year(),
+      constructionYear: dayjs(values.constructionYear).year().toString(),
+      address: {
+        ...values.address,
+        country: "Polska",
+        location: null,
+      },
     };
 
     onOk(formattedValues as ModalFlat);
