@@ -6,12 +6,15 @@ import com.bmwapp.appointment.exception.ResourceNotFoundException;
 import com.bmwapp.appointment.model.Appointment;
 import com.bmwapp.appointment.repository.AppointmentRepository;
 import com.bmwapp.appointment.response.GetFlatResponse;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,8 +22,14 @@ import java.util.List;
 
 @Slf4j
 @Service
-public record AppointmentService(AppointmentRepository appointmentRepository,
-                                 RestTemplate restTemplate, ModelMapper modelMapper, ContextProvider contextProvider) {
+@Transactional
+@AllArgsConstructor
+public class AppointmentService {
+
+    private final AppointmentRepository appointmentRepository;
+    private final RestTemplate restTemplate;
+    private final ModelMapper modelMapper;
+    private final ContextProvider contextProvider;
 
     public Appointment addAppointment(Appointment appointment) {
         appointment.setCustomerId(contextProvider.getLoggedUserId());
@@ -78,11 +87,21 @@ public record AppointmentService(AppointmentRepository appointmentRepository,
         return appointmentRepository.save(updatedAppointment);
     }
 
-    public void deleteAppointmentByIdAndCustomerId(Integer appointmentId, String customerId) {
-        appointmentRepository
-                .findById(appointmentId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Appointment with id %d not found", appointmentId)));
-        appointmentRepository.deleteByIdAndCustomerId(appointmentId, customerId);
+    public void deleteAppointment(Integer appointmentId) {
+        if (!appointmentRepository.findById(appointmentId).isPresent() || (contextProvider.userHasRole("CUSTOMER")
+                && !appointmentRepository.findOneByIdAndCustomerId(appointmentId, contextProvider.getLoggedUserId()).isPresent())) {
+            throw new ResourceNotFoundException(String.format("Appointment not found"));
+        }
+
+        if(contextProvider.userHasRole("CUSTOMER")){
+            appointmentRepository.deleteByIdAndCustomerId(appointmentId, contextProvider.getLoggedUserId());
+        } else {
+            appointmentRepository.deleteById(appointmentId);
+        }
+    }
+
+    public void deleteAllAppointments() {
+        appointmentRepository.deleteAll();
     }
 
     public AppointmentDto convertToDto(Appointment appointment) {

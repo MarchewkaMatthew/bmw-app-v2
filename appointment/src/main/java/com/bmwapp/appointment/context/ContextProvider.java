@@ -34,7 +34,6 @@ public class ContextProvider {
 
     public boolean userHasRole(String roleName) {
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) getAuthenticationToken().getAuthorities();
-        log.info("AUTHORITIES with list {}", authorities);
         for (GrantedAuthority grantedAuthority : authorities) {
             if (roleName.equals(grantedAuthority.getAuthority())) {
                 return true;
