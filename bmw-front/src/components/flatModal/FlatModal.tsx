@@ -75,7 +75,7 @@ export const FlatModal: React.FC<FlatModalProps> = (props) => {
           constructionYear: dayjs().year(
             flat?.constructionYear ? Number(flat.constructionYear) : 2023
           ),
-          isActive: flat?.isActive || true,
+          isActive: flat ? flat.isActive : true,
         }}
       >
         <Form.Item
@@ -83,42 +83,35 @@ export const FlatModal: React.FC<FlatModalProps> = (props) => {
           label="Nazwa nieruchomości"
           rules={[{ required: true }]}
         >
-          <Input defaultValue={flat?.flatName} />
+          <Input />
         </Form.Item>
         <Form.Item
           name="area"
           label="Powierzchnia"
           rules={[{ required: true, type: "number", min: 10, max: 1000 }]}
         >
-          <InputNumber defaultValue={flat?.area} className={styles.control} />
+          <InputNumber className={styles.control} />
         </Form.Item>
         <Form.Item
           name="pricePerSquareMeter"
           label="Cena za m^2"
           rules={[{ required: true, type: "number", min: 10, max: 30000 }]}
         >
-          <InputNumber
-            defaultValue={flat?.pricePerSquareMeter}
-            className={styles.control}
-            addonAfter="zł"
-          />
+          <InputNumber className={styles.control} addonAfter="zł" />
         </Form.Item>
         <Form.Item
           name="numberOfRooms"
           label="Ilość pokoi"
           rules={[{ required: true, type: "number", min: 0, max: 100 }]}
         >
-          <InputNumber
-            defaultValue={flat?.numberOfRooms}
-            className={styles.control}
-          />
+          <InputNumber className={styles.control} />
         </Form.Item>
         <Form.Item
           name="floor"
           label="Piętro"
           rules={[{ required: true, type: "number", min: 0, max: 100 }]}
         >
-          <InputNumber defaultValue={flat?.floor} className={styles.control} />
+          <InputNumber className={styles.control} />
         </Form.Item>
         <Form.Item
           name="constructionYear"
