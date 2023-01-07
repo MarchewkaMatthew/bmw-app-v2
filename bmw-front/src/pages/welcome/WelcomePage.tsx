@@ -5,6 +5,8 @@ import React from 'react';
 import styles from "./WelcomePage.module.scss";
 import { useAppUser } from '../../hooks/useAppUser';
 import { NotAuthenticatedPanel } from '../../components/notAuthenticatedPanel/NotAuthenticatedPanel';
+import { AgentPanel } from '../../components/agentPanel/AgentPanel';
+import { CustomerPanel } from '../../components/customerPanel/CustomerPanel';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -20,29 +22,28 @@ export const WelcomePage: React.FC = () => {
   }
 
   /*
-
-  TO DO: Dodać user info do appointment
-
-  // AGENT PANEL
-
-  CZEŚĆ AGENT!
-    LISTA WIADOMOŚCI (TODO: DODAĆ MOŻLIWOŚĆ EDYCJI STATUSU WIADOMOŚCI NA ODPOWIEDZIANA)
-    LISTA NIERUCHOMOŚCI + MOŻLIWOŚĆ DODANIA NOWEJ, EDYCJI STARYCH
-    LISTA SPOTKAŃ + MOLIWOŚĆ ZMIANY SPOTKANIA (TODO: DODAĆ FLAGĘ isCanceled), USUWANIE SPOTKANIA
-
-  // KLIENT PANEL
-
-  CZEŚĆ KLIENT!
-    LISTA MOICH SPOTKAŃ + MOŻLIWOŚĆ USUNIĘCIA ICH (TODO: KLIENT NIE POWINIEN MIEĆ MOŻLIWOŚCI EDYCJI CAŁEGO, TYLKO EW. STATUS I DATA)
-    TODO: DODAĆ FUNKCJONALNOŚĆ DODAWANIA MIESZKANIA DO ULUBIONYCH -> LISTA MIESZKAN NA PANELU
-    TODO: CZY POWINNISMY JAKOS OBSŁUZYC PROCES KUPOWANIA?
+    TO DO: Dodać user info do appointment
   */
+
+  const DashboardContent = () => {
+    if (appUser._type === "NOT_AUTHENTICATED") {
+      return <NotAuthenticatedPanel />
+    }
+
+    if (appUser._type !== "AUTHENTICATED") {
+      throw new Error("Wrong navigation logic")
+    }
+
+    if (appUser.isAgent) {
+      return <AgentPanel />
+    }
+
+    return <CustomerPanel />
+  }
 
   return (
     <article>
-      {appUser._type === "NOT_AUTHENTICATED" &&
-        <NotAuthenticatedPanel />
-      }
-    </article>
+      <DashboardContent />
+    </article >
   )
 }
