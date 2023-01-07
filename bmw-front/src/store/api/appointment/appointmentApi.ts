@@ -5,11 +5,14 @@ export const appointmentApi = createApi({
   reducerPath: 'appointmentApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8083/api/v1/appointments' }),
   endpoints: (builder) => ({
-    addAppointment: builder.mutation<AppointmentAddRequest, AppointmentAddRequest>({
-      query: (body) => ({
+    addAppointment: builder.mutation<AppointmentAddRequest, {body: AppointmentAddRequest, token: string}>({
+      query: (req) => ({
         url: "",
         method: 'POST',
-        body,
+        body: req.body,
+        headers: {
+          "Authorization": `Bearer ${req.token}`
+        }
       })
     }),
   }),

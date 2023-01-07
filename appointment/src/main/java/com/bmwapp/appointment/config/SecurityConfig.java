@@ -12,7 +12,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity security) throws Exception {
-        security.authorizeRequests(authorize -> authorize.anyRequest().authenticated())
+        security
+                .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
+                .csrf().disable()
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
     }
 }

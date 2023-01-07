@@ -2,6 +2,7 @@ import { Badge, Button, Descriptions, Empty, message } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useAppUser } from '../../hooks/useAppUser';
 import { useAddAppointmentMutation } from '../../store/api/appointment/appointmentApi';
 import { AppointmentAddRequest } from '../../store/api/appointment/types';
 import { useGetFlatQuery } from '../../store/api/flat/flatApi';
@@ -13,9 +14,14 @@ export const FlatPage: React.FC = () => {
   const { data } = useGetFlatQuery(Number(id));
   const [addAppointment] = useAddAppointmentMutation();
   const [messageApi, contextHolder] = message.useMessage();
+  const appUser = useAppUser();
 
   const handleAddAppointment = async () => {
     console.log("zamów spotkanie");
+
+    if (appUser._type !== "AUTHENTICATED") {
+      throw new Error("User is not authenticated");
+    }
 
     const request: AppointmentAddRequest = {
       appointmentDto: {
@@ -25,7 +31,7 @@ export const FlatPage: React.FC = () => {
       }
     }
 
-    addAppointment(request).then(() => {
+    addAppointment({ body: request, token: appUser.token }).then(() => {
       messageApi.loading("Przetwarzanie spotkania ...");
     }).catch(() => {
       console.log('catch');
