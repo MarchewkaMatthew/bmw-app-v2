@@ -1,7 +1,9 @@
-import { Typography } from 'antd';
+import { Alert, List, Typography } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React from 'react';
 import { useAppUser } from '../../hooks/useAppUser';
+import { useGetFlatsQuery } from '../../store/api/flat/flatApi';
+import { FlatCardItem } from '../flatCardItem/FlatCardItem';
 
 import styles from "./AgentPanel.module.scss"
 const { Text } = Typography;
@@ -15,6 +17,7 @@ const { Text } = Typography;
 
 export const AgentPanel: React.FC = () => {
   const appUser = useAppUser();
+  const { data, isLoading, isError } = useGetFlatsQuery("");
 
 
   if (appUser._type !== "AUTHENTICATED") {
@@ -24,9 +27,35 @@ export const AgentPanel: React.FC = () => {
   const { userName } = appUser;
 
   return (
-    <div className={styles.container}>
+    <div>
       <Title>{`Cześć ${userName}!`}</Title>
       <Text>Twoja rola to "AGENT"</Text>
+      <div className={styles.flatsSection}>
+        <Title level={2} className={styles.sectionTitle}>Nieruchomości</Title>
+        {isError ? (
+          <Alert
+            message="Wczytanie mieszkań nie powiodło się"
+            description="Spróbuj później"
+            type="error"
+            showIcon
+          />
+        ) : (
+          <List
+            dataSource={data?.flatDtoList}
+            grid={{
+              gutter: 16,
+              xs: 1,
+              sm: 1,
+              md: 1,
+              lg: 2,
+              xl: 3,
+              xxl: 4,
+            }}
+            loading={isLoading}
+            renderItem={flat => <FlatCardItem flat={flat} />}
+          />
+        )}
+      </div>
     </div>
   )
 }
