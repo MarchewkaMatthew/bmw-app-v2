@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { FlatUpdateRequest, GetFlatResponse, GetFlatsResponse } from './types';
+import { FlatAddRequest, FlatUpdateRequest, GetFlatResponse, GetFlatsResponse } from './types';
 
 export const flatApi = createApi({
   reducerPath: 'flatApi',
@@ -21,7 +21,17 @@ export const flatApi = createApi({
         }
       })
     }),
+    addFlat: builder.mutation<FlatAddRequest, {body: FlatAddRequest, token: string}>({
+      query: (req) => ({
+        url: "",
+        method: 'POST',
+        body: req.body,
+        headers: {
+          "Authorization": `Bearer ${req.token}`
+        }
+      })
+    }),
   }),
 })
 
-export const { useGetFlatsQuery, useGetFlatQuery, useUpdateFlatMutation } = flatApi;
+export const { useGetFlatsQuery, useGetFlatQuery, useUpdateFlatMutation, useAddFlatMutation } = flatApi;

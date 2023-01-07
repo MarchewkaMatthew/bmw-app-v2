@@ -31,3 +31,7 @@ export interface GetFlatResponse {
 export interface FlatUpdateRequest {
   flatDto: Pick<FlatDto, "id"> & Partial<Omit<FlatDto, "id">>;
 }
+
+export interface FlatAddRequest {
+  flatDto: Omit<FlatDto, "id" | "address"> & { address: Omit<AddressDto, "id"> };
+}

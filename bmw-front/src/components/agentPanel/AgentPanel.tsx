@@ -1,10 +1,14 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Alert, Button, List, Typography } from "antd";
+import { Alert, Button, List, message, Typography } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
 import { useAppUser } from "../../hooks/useAppUser";
 import { useModal } from "../../hooks/useModal";
-import { useGetFlatsQuery } from "../../store/api/flat/flatApi";
+import {
+  useAddFlatMutation,
+  useGetFlatsQuery,
+} from "../../store/api/flat/flatApi";
+import { FlatAddRequest } from "../../store/api/flat/types";
 import { FlatCardItem } from "../flatCardItem/FlatCardItem";
 import { FlatModal, ModalFlat } from "../flatModal/FlatModal";
 
@@ -22,18 +26,34 @@ export const AgentPanel: React.FC = () => {
   const { data, isLoading, isError, refetch } = useGetFlatsQuery("");
   const [open, showModal, hideModal] = useModal();
   const [confirmLoading, setConfirmLoading] = useState(false);
+  const [addFlat] = useAddFlatMutation();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const onFlatModalOk = async (flat: ModalFlat) => {
     setConfirmLoading(true);
 
-    console.log(flat);
+    if (appUser._type !== "AUTHENTICATED") {
+      throw new Error("User should be authenticated");
+    }
 
-    setTimeout(() => {
-      hideModal();
-      setConfirmLoading(false);
-      refetch();
-      console.log("finally");
-    }, 2000);
+    const request: FlatAddRequest = { flatDto: flat };
+
+    addFlat({ body: request, token: appUser.token })
+      .then(() => {
+        messageApi.loading("Przetwarzanie dodania nieruchomości ...");
+      })
+      .catch(() => {
+        console.log("catch");
+        messageApi.error("Dodanie nie powiodło się :(");
+      })
+      .finally(() => {
+        console.log("finally");
+        messageApi.destroy();
+        refetch();
+        hideModal();
+        setConfirmLoading(false);
+        messageApi.success("Nieruchomość dodana");
+      });
   };
 
   if (appUser._type !== "AUTHENTICATED") {
@@ -44,6 +64,7 @@ export const AgentPanel: React.FC = () => {
 
   return (
     <div>
+      {contextHolder}
       <Title>{`Cześć ${userName}!`}</Title>
       <Text>Twoja rola to "AGENT"</Text>
       <div className={styles.flatsSection}>
