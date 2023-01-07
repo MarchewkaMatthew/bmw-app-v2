@@ -81,7 +81,7 @@ export const FlatPage: React.FC = () => {
           <Descriptions.Item label="Piętro">{floor}</Descriptions.Item>
           <Descriptions.Item label="Ilość pokoi">{numberOfRooms}</Descriptions.Item>
           <Descriptions.Item label="Powierzchnia">
-            {area}
+            {area}m2
           </Descriptions.Item>
           <Descriptions.Item label="Status">
             <Badge status={isActive ? "success" : "error"} text={isActive ? "Dostępne" : "Niedostępne"} />
