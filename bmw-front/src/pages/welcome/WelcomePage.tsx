@@ -23,11 +23,6 @@ export const WelcomePage: React.FC = () => {
 
   TO DO: Dodać user info do appointment
 
-  // NOT_AUTHENTICATED PANEL
-
-  ZALOGUJ SIE
-  ZAREJESTRUJ SIE
-
   // AGENT PANEL
 
   CZEŚĆ AGENT!
