@@ -1,10 +1,10 @@
-import { Button, Spin } from 'antd';
-import Title from 'antd/es/typography/Title';
+import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import React from 'react';
 
 import styles from "./WelcomePage.module.scss";
 import { useAppUser } from '../../hooks/useAppUser';
+import { NotAuthenticatedPanel } from '../../components/notAuthenticatedPanel/NotAuthenticatedPanel';
 
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -45,12 +45,9 @@ export const WelcomePage: React.FC = () => {
 
   return (
     <article>
-      {appUser._type === "AUTHENTICATED" && <Title className={styles.title}>Cześć {appUser.userName}!</Title>}
-      <div className={styles.content}>
-        {appUser._type === "NOT_AUTHENTICATED" &&
-          <Button onClick={appUser.register}>Zarejestruj się</Button>
-        }
-      </div>
+      {appUser._type === "NOT_AUTHENTICATED" &&
+        <NotAuthenticatedPanel />
+      }
     </article>
   )
 }
