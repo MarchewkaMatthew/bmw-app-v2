@@ -30,7 +30,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "e2e": "npx playwright test",
+    "e2e:report": "npx playwright show-report"
   },
   "eslintConfig": {
     "extends": [
@@ -56,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.29.2",
     "@types/lodash": "^4.14.191",
     "@types/uuid": "^9.0.0"
   }
