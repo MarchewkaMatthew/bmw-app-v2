@@ -26,3 +26,18 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+management:
+  metrics:
+    export:
+      influx:
+        bucket: bmw-app
+        org: bmw-app
+        token: Q0w1gIo-fsHECIfUe_hRe-jzGUYoU8qzi5FiGuc1Oc2QobnKLnU81_19MjDTKv7aM10TFQfDWyLTJhfXFq8Qeg==
+        uri: http://localhost:8090
+        user-name: influxdb
+        password: influxpass
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
