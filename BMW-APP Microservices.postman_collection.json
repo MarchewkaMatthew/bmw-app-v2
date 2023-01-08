@@ -12,10 +12,13 @@
 				{
 					"name": "Get Flat by ID",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/api/v1/flats/452",
+							"raw": "http://localhost:8083/api/v1/flats/1152",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -25,7 +28,7 @@
 								"api",
 								"v1",
 								"flats",
-								"452"
+								"1152"
 							]
 						}
 					},
@@ -34,6 +37,9 @@
 				{
 					"name": "Get All Flats",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -55,10 +61,13 @@
 				{
 					"name": "Get Flats with Search Value",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8083/api/v1/flats?searchValue=rzeszów",
+							"raw": "http://localhost:8083/api/v1/flats?searchValue=Kraków",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -72,7 +81,7 @@
 							"query": [
 								{
 									"key": "searchValue",
-									"value": "rzeszów"
+									"value": "Kraków"
 								}
 							]
 						}
@@ -86,7 +95,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"flatDto\": {\r\n        \"flatName\": \"test 4 nowe mieszkanie\",\r\n        \"pricePerSquareMeter\": 29999.0,\r\n        \"area\": 50,\r\n        \"numberOfRooms\": 2,\r\n        \"constructionYear\": \"2022\",\r\n        \"isActive\": true,\r\n        \"address\": {\r\n            \"street\": \"ul. Wysoka 33\",\r\n            \"district\": \"malopolska\",\r\n            \"city\": \"Kraków\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"31-226\",\r\n            \"location\": null\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"flatDto\": {\r\n            \"flatName\": \"Test mieszkanie dsa13123543\",\r\n            \"pricePerSquareMeter\": 11599.0,\r\n            \"area\": 42.5,\r\n            \"numberOfRooms\": 3,\r\n            \"constructionYear\": \"2021\",\r\n            \"floor\": 5,\r\n            \"isActive\": true,\r\n            \"address\": {\r\n                \"street\": \"ul. Inna 63\",\r\n                \"district\": \"malopolska\",\r\n                \"city\": \"Kraków\",\r\n                \"country\": \"Polska\",\r\n                \"postal_code\": \"31-246\",\r\n                \"location\": null\r\n            }\r\n        }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -116,7 +125,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"flatDto\": {\r\n        \"id\": 704,\r\n        \"flatName\": \"test 4 nowe mieszkanie\",\r\n        \"pricePerSquareMeter\": 19966.0,\r\n        \"constructionYear\": \"2021\",\r\n        \"floor\": null,\r\n        \"isActive\": true,\r\n        \"address\": {\r\n            \"id\": 1002,\r\n            \"street\": \"ul. Nowa 33\",\r\n            \"district\": \"malopolskie\",\r\n            \"city\": \"Kraków\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"32-156\",\r\n            \"location\": null\r\n        }\r\n    }\r\n}\r\n// {\r\n//     \"flatDto\": {\r\n//             \"flatName\": \"Nowe mieszkanie\",\r\n//             \"pricePerSquareMeter\": 12499.0,\r\n//             \"area\": 43.0,\r\n//             \"numberOfRooms\": 4,\r\n//             \"constructionYear\": \"2018\",\r\n//             \"floor\": 4,\r\n//             \"isActive\": true,\r\n//             \"address\": {\r\n//                 \"street\": \"ul. Nowa 33\",\r\n//                 \"district\": \"malopolskie\",\r\n//                 \"city\": \"Kraków\",\r\n//                 \"country\": \"Polska\",\r\n//                 \"postal_code\": \"32-156\",\r\n//                 \"location\": null\r\n//             }\r\n//     }\r\n// }",
+							"raw": "{\r\n    \"flatDto\": {\r\n        \"id\": 852,\r\n        \"flatName\": \"zmiana 33 mieszkania\",\r\n        \"pricePerSquareMeter\": 10620,\r\n        \"area\": null,\r\n        \"constructionYear\": \"2019\",\r\n        \"numberOfRooms\": 5,\r\n        \"isActive\": true,\r\n        \"address\": {\r\n            \"id\": 1002,\r\n            \"street\": \"ul. Nowa 33\",\r\n            \"district\": \"malopolskie\",\r\n            \"city\": \"Kraków\",\r\n            \"country\": \"Polska\",\r\n            \"postal_code\": \"32-156\",\r\n            \"location\": null\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -142,114 +151,6 @@
 			]
 		},
 		{
-			"name": "Customer-Microservice",
-			"item": [
-				{
-					"name": "Get All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8083/api/v1/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8083",
-							"path": [
-								"api",
-								"v1",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Customer by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8083/api/v1/customers/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8083",
-							"path": [
-								"api",
-								"v1",
-								"customers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add new Customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test432321@gmail.com\",\r\n    \"firstName\": \"Jan\",\r\n    \"lastName\": \"Testowy\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8083/api/v1/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8083",
-							"path": [
-								"api",
-								"v1",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Customer",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 202,\r\n    \"firstName\": \"Jakub\",\r\n    \"lastName\": \"Kolasiakssss\",\r\n    \"email\": \"jkolasiak@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8083/api/v1/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8083",
-							"path": [
-								"api",
-								"v1",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Appointment-Microservice",
 			"item": [
 				{
@@ -259,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"customerId\": 1,\r\n    \"appointmentName\": \"Nowe spotkanie test 2\",\r\n    \"appointmentDate\": \"2023-11-25 00:00\"\r\n}",
+							"raw": "{\r\n    \"appointmentDto\": {\r\n        \"appointmentName\": \"Wizja lokalna\",\r\n        \"appointmentDate\": \"2023-01-20 12:30\",\r\n        \"flatId\": 1153,\r\n        \"status\": \"NEW\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -289,7 +190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"customerId\": 1,\r\n    \"appointmentName\": \"Nowe spotkanie test\",\r\n    \"appointmentDate\": \"2023-11-23 00:00\"\r\n}",
+							"raw": "{\r\n    \"appointmentDto\": {\r\n        \"id\": 1,\r\n        \"appointmentName\": \"Wizja lokalna zmodyfikowane przez customera\",\r\n        \"appointmentDate\": \"2023-01-20 15:33\",\r\n        \"flatId\": 1132,\r\n        \"status\": \"NEW\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -311,6 +212,246 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get All Appointments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Appointments for Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments/forCustomer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"forCustomer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Appointments by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments/202",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"202"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Appointments by CustomerId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments?customerId=a4cce650-eefa-429d-ae96-9465e146e18b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "customerId",
+									"value": "a4cce650-eefa-429d-ae96-9465e146e18b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Appointment by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments/152",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments",
+								"152"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete All Appointments",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message-Microservices",
+			"item": [
+				{
+					"name": "Add new Message",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"messageDto\":{\r\n        \"firstName\": \"Patryk\",\r\n        \"lastName\": \"Małek\",\r\n        \"phoneNumber\": \"543098127\",\r\n        \"email\": \"pmalek@test.pl\",\r\n        \"additionalInformation\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry.\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Messages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Message by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/messages/53",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"messages",
+								"53"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -319,38 +460,58 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
-				"key": "scope",
-				"value": "openid",
+				"key": "client_authentication",
+				"value": "header",
 				"type": "string"
 			},
 			{
-				"key": "password",
-				"value": "test",
-				"type": "string"
-			},
-			{
-				"key": "username",
-				"value": "test_customer",
+				"key": "clientSecret",
+				"value": "{{client-secret}}",
 				"type": "string"
 			},
 			{
 				"key": "clientId",
-				"value": "bmw-app-gateway-client",
-				"type": "string"
-			},
-			{
-				"key": "accessTokenUrl",
-				"value": "http://localhost:8890/realms/bmw-app/protocol/openid-connect/token",
+				"value": "{{client-id}}",
 				"type": "string"
 			},
 			{
 				"key": "grant_type",
-				"value": "password_credentials",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "tessst",
+				"type": "string"
+			},
+			{
+				"key": "headerPrefix",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:8890/realms/bmw-app/protocol/openid-connect/auth",
 				"type": "string"
 			},
 			{
 				"key": "addTokenTo",
 				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "test_agent",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8890/realms/bmw-app/protocol/openid-connect/token",
 				"type": "string"
 			}
 		]
@@ -373,6 +534,20 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJLdnZoU3hMb213TmNiWTBLRWxRcWo3UEI2UlA1bmVWTVIyTXNEVTF1QVQ0In0.eyJleHAiOjE2NzI5MTcxMjIsImlhdCI6MTY3MjkxNjgyMiwiYXV0aF90aW1lIjoxNjcyOTE2ODIxLCJqdGkiOiJiYTVhMDE3OC0zMjJhLTQzMjktOWY1ZC1kMWQ1OTM0N2RiMjAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg4OTAvcmVhbG1zL2Jtdy1hcHAiLCJzdWIiOiI3ODlhOGU2Ny02MmFhLTRkYjItYWJlOS02OTViZjBlNGFmZWIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJibXctYXBwLWdhdGV3YXktY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjQzMGNiNTBiLTZjNmUtNDIzNC05OGFjLWJlZjI1ZThkZGUxYSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZ2xvd25hX3JvbGEiXX0sInJlc291cmNlX2FjY2VzcyI6eyJibXctYXBwLWdhdGV3YXktY2xpZW50Ijp7InJvbGVzIjpbImFnZW50Il19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInNpZCI6IjQzMGNiNTBiLTZjNmUtNDIzNC05OGFjLWJlZjI1ZThkZGUxYSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlRlc3QgQWdlbnQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ0ZXN0X2FnZW50IiwiZ2l2ZW5fbmFtZSI6IlRlc3QiLCJmYW1pbHlfbmFtZSI6IkFnZW50In0.OfpiT8A6W4MektH4YGNAqg_usCbLO4aDTVEDey7vYUstBvX161FGpzVJzY8nkN87M-cbT2-sN7AYOU_5SpVHhsupaAPaZFMuMyRW8w_x4Mk8VADKK5iN_aJ2MUA4Yp00y6IMqsTSZRiRztYb0N3iaZFXx0eIpZ2zuVTW0opY8iMVIeKIqCfaU2jYt6O2Uul6QDbWBFLw4reIKgEIlxJ5A0M3rmBANTk7fmmbnmaBzUwrnISLdJQJ8-nYSeWOlBwenk9zaGWoEVRloH1Fq96eyA5asXjpNVl35uQwHIxZQPSMPhQx6VRlF_WcyVi9nb6yY7KedW38xfCwhsAOPDwn3A"
+		},
+		{
+			"key": "client-id",
+			"value": "bmw-app-gateway-client"
+		},
+		{
+			"key": "client-secret",
+			"value": "8XDoa32DJSvWk6BKVczXauBRrDI6P4Ep"
 		}
 	]
 }
