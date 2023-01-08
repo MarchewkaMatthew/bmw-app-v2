@@ -1,8 +1,8 @@
-import { Button, Divider, Typography, } from 'antd';
-import Title from 'antd/es/typography/Title';
-import React from 'react';
-import { useAppUser } from '../../hooks/useAppUser';
-import { ActionsCard } from '../actionsCard/ActionsCard';
+import { Button, Divider, Typography } from "antd";
+import Title from "antd/es/typography/Title";
+import React from "react";
+import { useAppUser } from "../../hooks/useAppUser";
+import { ActionsCard } from "../actionsCard/ActionsCard";
 
 import styles from "./NotAuthenticatedPanel.module.scss";
 const { Text } = Typography;
@@ -23,11 +23,20 @@ export const NotAuthenticatedPanel: React.FC = () => {
           Szukasz nieruchomości do kupienia? Dobrze trafiłeś!
         </Title>
         <Text>Zaloguj się na juz istniejące konto.</Text>
-        <Button onClick={login} type="primary" className={styles.button}>Zaloguj się</Button>
+        <Button
+          onClick={login}
+          type="primary"
+          className={styles.button}
+          data-testid="login"
+        >
+          Zaloguj się
+        </Button>
         <Divider>lub</Divider>
         <Text>Stwórz nowe konto w naszym serwisie.</Text>
-        <Button onClick={register} className={styles.button}>Zarejestruj się</Button>
+        <Button onClick={register} className={styles.button}>
+          Zarejestruj się
+        </Button>
       </ActionsCard>
     </div>
-  )
-}
+  );
+};
