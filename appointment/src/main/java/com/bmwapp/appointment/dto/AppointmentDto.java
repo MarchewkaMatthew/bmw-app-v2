@@ -15,5 +15,5 @@ public class AppointmentDto implements Serializable {
     private String appointmentName;
     private String appointmentDate;
     private Integer flatId;
-
+    private String status; //NEW, ACCEPTED, REJECTED, CANCELED ???
 }

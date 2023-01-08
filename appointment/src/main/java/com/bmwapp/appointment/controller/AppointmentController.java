@@ -73,11 +73,19 @@ public class AppointmentController {
         return new AppointmentResponse(appointmentService.convertToDto(updatedAppointment));
     }
 
-    @PreAuthorize("hasAuthority('CUSTOMER')")
+    @PreAuthorize("hasAnyAuthority('CUSTOMER', 'AGENT')")
     @DeleteMapping(path = "{id}")
     public ResponseEntity<?> deleteAppointment(@PathVariable("id") Integer appointmentId) {
         log.info("Delete appointment {}", appointmentId);
-        appointmentService.deleteAppointmentByIdAndCustomerId(appointmentId, contextProvider.getLoggedUserId());
+        appointmentService.deleteAppointment(appointmentId);
         return ResponseEntity.ok(String.format("Appointment with id %d deleted successfully", appointmentId));
+    }
+
+    @PreAuthorize("hasAuthority('AGENT')")
+    @DeleteMapping()
+    public ResponseEntity<?> deleteAllAppointments() {
+        log.info("Delete all appointments by agent {}");
+        appointmentService.deleteAllAppointments();
+        return ResponseEntity.ok(String.format("All Appointments deleted successfully"));
     }
 }

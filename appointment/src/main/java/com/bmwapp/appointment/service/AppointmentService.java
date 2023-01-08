@@ -6,12 +6,15 @@ import com.bmwapp.appointment.exception.ResourceNotFoundException;
 import com.bmwapp.appointment.model.Appointment;
 import com.bmwapp.appointment.repository.AppointmentRepository;
 import com.bmwapp.appointment.response.GetFlatResponse;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.Provider;
 import org.modelmapper.TypeMap;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,42 +22,47 @@ import java.util.List;
 
 @Slf4j
 @Service
-public record AppointmentService(AppointmentRepository appointmentRepository,
-                                 RestTemplate restTemplate, ModelMapper modelMapper, ContextProvider contextProvider) {
+@Transactional
+@AllArgsConstructor
+public class AppointmentService {
+
+    private final AppointmentRepository appointmentRepository;
+    private final RestTemplate restTemplate;
+    private final ModelMapper modelMapper;
+    private final ContextProvider contextProvider;
 
     public Appointment addAppointment(Appointment appointment) {
         appointment.setCustomerId(contextProvider.getLoggedUserId());
         GetFlatResponse response = restTemplate
                 .getForObject("http://FLAT/api/v1/flats/{id}", GetFlatResponse.class, appointment.getFlatId());
-        if(response.flatDto() == null) throw new ResourceNotFoundException(String.format("Flat with id %d not found", appointment.getFlatId()));
+        if (response != null && response.flatDto() == null)
+            throw new ResourceNotFoundException(String.format("Flat with id %d not found", appointment.getFlatId()));
         return appointmentRepository.save(appointment);
     }
 
     public Appointment getAppointment(Integer appointmentId) {
-        Appointment appointment = appointmentRepository
+        return appointmentRepository
                 .findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Appointment with id %d not found", appointmentId)));
-        return appointment;
     }
 
     public List<Appointment> getAllAppointments() {
-        List<Appointment> appointments = appointmentRepository.findAll();
-        return appointments;
+        return appointmentRepository.findAll();
     }
 
     public List<Appointment> getAllAppointmentsByCustomerId(String customerId) {
-        List<Appointment> appointments = appointmentRepository.getAllByCustomerId(customerId);
-        return appointments;
+        return appointmentRepository.getAllByCustomerId(customerId);
     }
 
     public Appointment updateAppointment(Appointment appointment) {
         if(appointment.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    String.format("ID of appointment is not set but is required."));
+                    "ID of appointment is not set but is required.");
         }
 
         TypeMap<Appointment, Appointment> propertyMapper = modelMapper.getTypeMap(Appointment.class, Appointment.class);
-        if(propertyMapper == null) propertyMapper = modelMapper.createTypeMap(Appointment.class, Appointment.class);
+        if(modelMapper.getTypeMap(Appointment.class, Appointment.class) == null) propertyMapper = modelMapper.createTypeMap(Appointment.class, Appointment.class);
+
         Appointment oldAppointment = appointmentRepository
                 .findById(appointment.getId())
                 .orElseThrow(() ->
@@ -63,15 +71,37 @@ public record AppointmentService(AppointmentRepository appointmentRepository,
         Provider<Appointment> appointmentProvider = p -> oldAppointment;
         propertyMapper.setProvider(appointmentProvider);
 
+        if(contextProvider.userHasRole("CUSTOMER")){
+            modelMapper.getTypeMap(Appointment.class, Appointment.class)
+                    .addMappings(mapper ->mapper.skip(Appointment::setCustomerId))
+                    .addMappings(mapper ->mapper.skip(Appointment::setFlatId))
+                    .addMappings(mapper ->mapper.skip(Appointment::setAppointmentName));
+        } else {
+            modelMapper.getTypeMap(Appointment.class, Appointment.class)
+                    .addMappings(mapper ->mapper.map(Appointment::getCustomerId, Appointment::setCustomerId))
+                    .addMappings(mapper ->mapper.map(Appointment::getFlatId, Appointment::setFlatId))
+                    .addMappings(mapper ->mapper.map(Appointment::getAppointmentName, Appointment::setAppointmentName));
+        }
+
         Appointment updatedAppointment = modelMapper.map(appointment, Appointment.class);
         return appointmentRepository.save(updatedAppointment);
     }
 
-    public void deleteAppointmentByIdAndCustomerId(Integer appointmentId, String customerId) {
-        Appointment appointment = appointmentRepository
-                .findById(appointmentId)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("Appointment with id %d not found", appointmentId)));
-        appointmentRepository.deleteByIdAndCustomerId(appointmentId, customerId);
+    public void deleteAppointment(Integer appointmentId) {
+        if (!appointmentRepository.findById(appointmentId).isPresent() || (contextProvider.userHasRole("CUSTOMER")
+                && !appointmentRepository.findOneByIdAndCustomerId(appointmentId, contextProvider.getLoggedUserId()).isPresent())) {
+            throw new ResourceNotFoundException(String.format("Appointment not found"));
+        }
+
+        if(contextProvider.userHasRole("CUSTOMER")){
+            appointmentRepository.deleteByIdAndCustomerId(appointmentId, contextProvider.getLoggedUserId());
+        } else {
+            appointmentRepository.deleteById(appointmentId);
+        }
+    }
+
+    public void deleteAllAppointments() {
+        appointmentRepository.deleteAll();
     }
 
     public AppointmentDto convertToDto(Appointment appointment) {
