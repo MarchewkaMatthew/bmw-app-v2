@@ -30,6 +30,7 @@
 - 8083 - API Gateway (main backend port)
 - 8084,8081,8082 - microservices
 - 8080 - keycloak
+- 8090 - App monitoring using InfluxDB
 
 ## To run docker
 
