@@ -93,6 +93,29 @@ services:
       - "8090:8086"
     networks:
       - influxdb
+  grafana:
+    image: grafana/grafana
+    container_name: grafana_monitoring
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - 9000:3000
+    networks:
+      - grafana
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - grafana_config-storage:/etc/grafana
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus_monitoring
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus-storage:/etc/prometheus
+      - $PWD/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - prometheus
 networks:
   keycloak_network:
     driver: bridge
@@ -102,9 +125,16 @@ networks:
     driver: bridge
   influxdb:
     driver: bridge
+  grafana:
+    driver: bridge
+  prometheus:
+    driver: bridge
 volumes:
   pgdata_keycloak:
   postgres:
   pgadmin:
   influxdb-storage:
   influxdb_config-storage:
+  grafana-storage:
+  grafana_config-storage:
+  prometheus-storage:

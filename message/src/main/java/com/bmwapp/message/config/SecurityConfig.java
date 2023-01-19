@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         security
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/v1/messages").permitAll()
+                .antMatchers("/actuator/prometheus").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
